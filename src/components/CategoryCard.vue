@@ -1,26 +1,46 @@
 <script setup>
 defineProps({
-  iconSrc: String,
-  label: String,
+  title: {
+    type: String,
+    required: true,
+  },
+  publicationDate: {
+    type: String,
+    required: true,
+  },
+  tags: {
+    type: Array,
+    required: true,
+  },
+  link: {
+    type: String,
+    required: true,
+  },
 });
 </script>
-
 <template>
-  <div
-    class="bg-white p-4 rounded-[10px] u-shadow-2 hover:bg-indigo-dye hover:text-white duration-300"
-  >
-    <div class="flex items-center gap-x-4">
-      <div class="flex-shrink-0">
-        <div
-          class="w-10 h-10 bg-indigo-dye rounded-[10px] grid place-items-center"
+  <div class="bg-white p-5 border border-eerie-black/15 rounded-[5px]">
+    <h3 class="font-medium">
+      {{ title }}
+    </h3>
+    <p class="mt-6 text-[13px]">
+      {{ publicationDate }}
+    </p>
+    <div class="mt-3 flex items-center justify-between">
+      <ul class="flex items-center gap-x-1.5">
+        <li
+          v-bind:key="i"
+          v-for="(tag, i) in tags"
+          class="text-[10px] text-indigo-dye py-1 px-2 rounded-[10px] bg-indigo-dye/10"
         >
-          <img :src="iconSrc" :alt="label + ' image'" />
-        </div>
-      </div>
+          {{ tag }}
+        </li>
+      </ul>
       <div>
-        <p class="leading-tight">
-          {{ label }}
-        </p>
+        <a class="inline-flex items-center gap-x-2" href="/">
+          <p class="text-indigo-dye font-medium">Descargar</p>
+          <img src="/images/icons/download.svg" alt="download icon" />
+        </a>
       </div>
     </div>
   </div>
