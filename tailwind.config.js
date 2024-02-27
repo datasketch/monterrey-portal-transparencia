@@ -12,6 +12,9 @@ export default {
       }
     },
   },
-  plugins: [],
+  plugins: [
+    // eslint-disable-next-line no-undef
+    require('@tailwindcss/forms'),
+  ],
 }
 
