@@ -15,7 +15,7 @@ import Accordion from "@/components/Accordion.vue";
             <div class="bg-indigo-dye p-4 rounded-[5px]">
               <Accordion label="Constituciones">
                 <Accordion label="Tratados Internacionales">
-                  xD
+                  &nbsp;
                 </Accordion>
               </Accordion>
             </div>
