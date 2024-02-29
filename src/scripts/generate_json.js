@@ -68,6 +68,8 @@ function createChildren(originalChildrenArray) {
             description: "", // TODO: ver de donde sacar este campo
             transparency_report: ""// TODO: tomar los datos del crudo transparency_report.json a partir del id del campo reporte_transparencia? 
         };
+
+        // TODO: acá falta obtener los id de los hijos del jsonData para luego hacer lo siguiente
         
         // Si el elemento tiene hijos se llama recursivamente la función para ellos
         if (element.children && Array.isArray(element.children)) {
