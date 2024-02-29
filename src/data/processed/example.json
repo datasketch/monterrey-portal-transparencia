@@ -1,0 +1,60 @@
+[
+  {
+    "id": "1",
+    "label": "Obligaciones de transparencia",
+    "src_image": "/images/example.png",
+    "link": "",
+    "children": [
+      {
+        "id": "x",
+        "label": "Constituciones",
+        "description": "lorem ipsum",
+        "children": [
+          {
+            "id": "x",
+            "label": "articulo x",
+            "description": "",
+            "transparency_report": [
+              {
+                "id": "x",
+                "label": "Articulo x",
+                "data": [
+                  {
+                    "title": "lorem",
+                    "date": "2024-01-01",
+                    "tags": ["a", "b", "c"],
+                    "link": ".csv"
+                  }
+                ]
+              },
+              {
+                "id": "x",
+                "label": "Articulo x",
+                "data": [
+                  {
+                    "title": "lorem",
+                    "date": "2024-01-01",
+                    "tags": ["a", "b", "c"],
+                    "link": ".csv"
+                  }
+                ]
+              },
+              {
+                "id": "x",
+                "label": "Articulo x",
+                "data": [
+                  {
+                    "title": "lorem",
+                    "date": "2024-01-01",
+                    "tags": ["a", "b", "c"],
+                    "link": ".csv"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+]
