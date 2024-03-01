@@ -15,11 +15,11 @@ try {
    const processedJson = [];
 
    mainCategories.forEach(element => {
-        console.log("----------- Creating main category ----------- ");
-        console.log("Creating " + element.label);
+        console.log("-----------> Creating main category " + element.label);
 
         const originalChildrenArray = findBy(element.id, jsonData);
 
+        console.log("-----------> Creating children categories for " + element.label);
         const mainCategoryProcessed = {
             id: uuidv4(),
             label: replaceAll(element.label, "-", " "),
@@ -52,9 +52,7 @@ function findBy(fatherId, jsonData) {
     return jsonData.filter(item => Array.isArray(item.padre) && item.padre.includes(fatherId));
 }
 
-function createChildren(originalChildrenArray, jsonData) {
-    console.log("----------- Creating children categories -----------");
-    
+function createChildren(originalChildrenArray, jsonData) {    
     if (Array.isArray(originalChildrenArray)) {
       const processedChildrenArray = [];
   
