@@ -18,14 +18,14 @@ defineProps({
 <template>
   <Disclosure v-slot="{ open }">
     <DisclosureButton
-      class="flex items-center justify-between p-2 w-full duration-300"
+      class="flex items-center justify-between text-left p-2 w-full duration-300"
       :class="open && 'bg-white'"
     >
-      <p class="duration-300" :class="open ? 'text-indigo-dye' : 'text-white'">
+      <p class="first-letter:uppercase duration-300" :class="open ? 'text-indigo-dye' : 'text-white'">
         {{ label }}
       </p>
-      <PlusIcon class="h-6 w-6 text-white" v-show="!open" />
-      <MinusIcon class="h-6 w-6 text-indigo-dye" v-show="open" />
+      <PlusIcon class="flex-shrink-0 h-6 w-6 text-white" v-show="!open" />
+      <MinusIcon class="flex-shrink-0 h-6 w-6 text-indigo-dye" v-show="open" />
     </DisclosureButton>
     <DisclosurePanel>
       <slot></slot>

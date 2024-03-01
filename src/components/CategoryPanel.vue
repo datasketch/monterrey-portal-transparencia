@@ -1,9 +1,13 @@
+<!-- eslint-disable vue/no-use-v-if-with-v-for -->
 <script setup>
 import BreadCrumbs from "@/components/BreadCrumbs.vue";
 import CategoryFilters from "@/components/CategoryFilters.vue";
 import { store } from "@/store";
 import CategoryCard from "@/components/CategoryCard.vue";
 import Accordion from "@/components/Accordion.vue";
+import { toRaw } from "vue";
+
+const { children: subcategories } = toRaw(store.getDataByCategory()[0]);
 </script>
 <template>
   <div class="py-12">
@@ -13,15 +17,21 @@ import Accordion from "@/components/Accordion.vue";
         <div class="flex gap-x-16">
           <div class="hidden lg:block lg:w-full lg:max-w-[347px]">
             <div class="bg-indigo-dye p-4 rounded-[5px]">
-              <Accordion label="Constituciones">
-                <Accordion label="Tratados Internacionales">
-                  &nbsp;
-                </Accordion>
+              <Accordion
+                v-bind:key="item.id"
+                v-for="item in subcategories"
+                :label="item.label"
+              >
+                <Accordion
+                  v-bind:key="children.id"
+                  v-for="children in item.children"
+                  :label="children.label"
+                />
               </Accordion>
             </div>
           </div>
           <div class="w-full">
-            <h2 class="text-2xl lg:text-3xl font-semibold">
+            <h2 class="text-2xl lg:text-3xl font-semibold first-letter:uppercase">
               {{ store.getCategory() }}
             </h2>
             <CategoryFilters class="mt-8" />
@@ -43,3 +53,8 @@ import Accordion from "@/components/Accordion.vue";
     </div>
   </div>
 </template>
+<!-- <Accordion v-bind:key="category.id" v-for="category in store.getDataByCategory()" :label="category.label">
+  <Accordion v-bind:key="item.id" v-for="item of category.children" :label="item.label">
+    &nbsp;
+  </Accordion>
+</Accordion> -->

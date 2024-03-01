@@ -5,49 +5,6 @@ import { store } from "@/store";
 import CategoryPanel from "@/components/CategoryPanel.vue";
 import { watch } from "vue";
 
-const categoryData = [
-  {
-    id: 1,
-    iconSrc: "/images/icons/magnifying-glass.svg",
-    label: "Obligaciones de transparencia",
-  },
-  {
-    id: 2,
-    iconSrc: "/images/icons/bank.svg",
-    label: "Ayuntamiento, sesiones y comisiones",
-  },
-  {
-    id: 3,
-    iconSrc: "/images/icons/news-paper.svg",
-    label: "Gacetas municipales",
-  },
-  {
-    id: 4,
-    iconSrc: "/images/icons/hammer.svg",
-    label: "Normatividad",
-  },
-  {
-    id: 5,
-    iconSrc: "/images/icons/document.svg",
-    label: "Consulta información fiscal (ITDIF)",
-  },
-  {
-    id: 6,
-    iconSrc: "/images/icons/file.svg",
-    label: "Contratos, permisos, licencias y concesiones",
-  },
-  {
-    id: 7,
-    iconSrc: "/images/icons/database.svg",
-    label: "Consulta los conjuntos de datos abiertos",
-  },
-  {
-    id: 8,
-    iconSrc: "/images/icons/lamp.svg",
-    label: "Solicita información pública de tu interés",
-  },
-];
-
 // effects
 watch(store, (newStore) => {
   if (newStore.getCategory()) {
@@ -105,10 +62,11 @@ watch(store, (newStore) => {
         <div class="mt-12">
           <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
             <CategoryButton
-              v-for="{ id, iconSrc, label } in categoryData"
+              v-for="{ id, src_image, label, link } in store.getStructureData()"
               v-bind:key="id"
-              :icon-src="iconSrc"
+              :icon-src="src_image"
               :label="label"
+              :link="link"
             />
           </div>
         </div>

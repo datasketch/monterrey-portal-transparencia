@@ -1,11 +1,25 @@
 import { reactive } from "vue";
+import structureData from "@/data/processed/structure.json";
 
 export const store = reactive({
+    // data
+    structureData,
+
     // states
     category: '',
     breadcrumbs: ['Inicio'],
+    selectedCategoryData: null,
 
     // get and set
+
+    // data
+    getStructureData() {
+        return this.structureData
+    },
+
+    getDataByCategory() {
+        return this.structureData.filter(({ label }) => label === this.category)
+    },
 
     // category
     setCategory(value) {

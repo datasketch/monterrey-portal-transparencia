@@ -22,14 +22,14 @@ function breadcrumbsHandlerClick(value) {
         v-if="index + 1 !== store.getBreadcrumbs().length"
       >
         <button
-          class="text-eerie-black/40"
+          class="text-eerie-black/40 first-letter:uppercase"
           @click="breadcrumbsHandlerClick(breadcrumb)"
         >
           {{ breadcrumb }}
         </button>
         <img src="/images/icons/chevron-right.svg" alt="chevron right" />
       </div>
-      <p v-else>
+      <p v-else class="first-letter:uppercase">
         {{ breadcrumb }}
       </p>
     </li>
