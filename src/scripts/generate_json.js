@@ -3,7 +3,6 @@ import { readFileSync } from 'fs';
 import { v4 as uuidv4 } from 'uuid';
 
 const jsonPath = '../data/raw/structure.json';
-
 try {
     const jsonContent = readFileSync(jsonPath, 'utf-8');
 
@@ -86,7 +85,7 @@ function findBy(slug, jsonData) {
 }
 
 function createChildren(originalChildrenArray, jsonData) {
-    if (Array.isArray(originalChildrenArray)) {
+    if (Array.isArray(originalChildrenArray) && originalChildrenArray.length > 0) {
         const processedChildrenArray = [];
 
         originalChildrenArray.forEach(element => {
@@ -100,14 +99,19 @@ function createChildren(originalChildrenArray, jsonData) {
                 transparency_report: ""// TODO: tomar los datos del crudo transparency_report.json a partir del id del campo reporte_transparencia? 
             };
 
-            const childrenField = findBy(element.slug, jsonData);
 
-            // Si el elemento tiene hijos se llama recursivamente la función para ellos
-            if (childrenField && childrenField.length > 0 && Array.isArray(childrenField)) {
-                childrenObject.children = createChildren(childrenField, jsonData);
+            // TODO: definir en qué momento crear el subarreglo
+            if (!/\d{4}/.test(element.slug) || Array.isArray(element.reporte_transparencia)) {
+                const childrenField = findBy(element.slug, jsonData);
+    
+                // Si el elemento tiene hijos se llama recursivamente la función para ellos
+                if (childrenField && Array.isArray(childrenField) && childrenField.length > 0) {
+                    childrenObject.children = createChildren(childrenField, jsonData);
+                }
             }
-
+            
             processedChildrenArray.push(childrenObject);
+
         });
 
         return processedChildrenArray;

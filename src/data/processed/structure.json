@@ -1,130 +1,197 @@
 [
   {
-    "id": "263e69a0-1d17-4773-a0c1-c9232f2f0d64",
-    "label": "Obligaciones de transparencia",
-    "src_image": "/images/icons/magnifying-glass.svg",
-    "link": "",
-    "order": 1,
-    "children": [
-      {
-        "id": "b6eebb47-7fce-4065-bb87-cc5172e41bec",
-        "label": "Contratos permisos licencia y concesiones",
-        "description": "",
-        "transparency_report": ""
-      },
-      {
-        "id": "04d5ce41-a49a-4ab1-ab62-b49582cca9d0",
-        "label": "Administración pública municipal descentralizada",
-        "description": "",
-        "transparency_report": ""
-      },
-      {
-        "id": "1647d313-08f7-4d5a-9de0-f2ff4f873e9d",
-        "label": "Administración pública centralizada",
-        "description": "",
-        "transparency_report": ""
-      }
-    ]
-  },
-  {
-    "id": "c0940c1e-e7fe-4dbd-ac74-54ae26fa7977",
+    "id": "b221ecb1-69fb-4ce0-8016-22b37a21dcfe",
     "label": "Ayuntamiento, sesiones y comisiones",
     "src_image": "/images/icons/bank.svg",
     "link": "",
     "order": 2,
     "children": [
       {
-        "id": "32ded10d-31fd-4a34-80d8-66bc02100644",
+        "id": "78fdf440-5708-4f7e-80fd-cb2af71fa910",
         "label": "Calendarización y asistencia a sesiones y Comisiones 2019",
         "description": "",
         "transparency_report": ""
       },
       {
-        "id": "7d313508-7302-4d7d-95e7-4e84b0b6b848",
+        "id": "987c7ce2-a158-49f7-8985-fea95376f5ae",
         "label": "Sesiones en vivo",
         "description": "",
         "transparency_report": ""
       },
       {
-        "id": "e33d5ceb-5fa1-4de3-9eb2-ce77a2c86cea",
+        "id": "6b4b911f-686e-4d67-adfc-501a76e21b90",
         "label": "Normatividad relaciónada con las sesiones Votación e integración de comisiones del ayuntamiento",
         "description": "",
         "transparency_report": ""
       },
       {
-        "id": "71782c6c-5a62-41e7-a59f-2db9ef4d6b95",
+        "id": "45a317f5-2d6e-450b-a8a1-3fb7089d1010",
         "label": "Formato 97 iv integración de las comisiones Del ayuntamiento",
         "description": "",
         "transparency_report": ""
       },
       {
-        "id": "02644bda-0981-46c5-95ea-feef6d3a2efd",
+        "id": "04c4a191-59c8-4062-a4ef-a019a9653975",
         "label": "Calendarización y asistencia a sesiones y Comisiones 2022",
         "description": "",
         "transparency_report": ""
       },
       {
-        "id": "c0cbf690-16bc-4767-bd69-0b023f956c59",
+        "id": "42b14930-2fc7-4fa1-aeed-093d94b825b9",
         "label": "Archivo de acuerdos anos 2006 2023",
         "description": "",
         "transparency_report": ""
       },
       {
-        "id": "00e58d87-6da4-41a6-94f5-fb2d577e7e27",
+        "id": "2248cd79-8151-4f01-801a-838a5fb7146f",
         "label": "Dictamenes anos 2009 2023",
         "description": "",
         "transparency_report": ""
       },
       {
-        "id": "82189039-fee3-4fa0-b929-c777afc61d26",
+        "id": "1aaeb5db-45a3-4a1c-966d-5b33bce8ca11",
         "label": "integración",
         "description": "",
         "transparency_report": ""
       },
       {
-        "id": "e0b49b65-0eed-4799-90e1-8d01ec95976b",
+        "id": "85ecf671-7f4a-497c-bf3b-fd5233d660fa",
         "label": "Calendarización y asistencia a sesiones y Comisiones 2021",
         "description": "",
         "transparency_report": ""
       },
       {
-        "id": "206bd4b7-9bee-4caa-b244-281b61b26bc1",
+        "id": "d5de50d9-9c2f-4c7b-bb4a-5705802077e0",
         "label": "Calendarización y asistencia a sesiones y Comisiones 2020",
         "description": "",
         "transparency_report": ""
       },
       {
-        "id": "d5db8414-b1e6-438b-984e-d1ada3b3892c",
+        "id": "43bbce9f-643d-4c5e-b3ea-07638178acf7",
         "label": "Orden del día de las sesiones del ayuntamiento Anos 2009 2023",
         "description": "",
         "transparency_report": ""
       },
       {
-        "id": "50328165-f4de-40cd-b990-9fc5f761f1a0",
+        "id": "74d2e595-aed7-4b30-9db6-7248739bbdcf",
         "label": "Actas acuerdos y dictamenes",
         "description": "",
-        "transparency_report": ""
+        "transparency_report": "",
+        "children": [
+          {
+            "id": "050c17f3-ad83-4102-a673-837b204f9bd3",
+            "label": "Actas de las sesiones del ayuntamiento anos 2007 2022",
+            "description": "",
+            "transparency_report": ""
+          }
+        ]
       },
       {
-        "id": "7f0a5490-c7d5-4c1a-ad00-0c93db4b7dab",
+        "id": "be5424b4-e9e9-4111-8a8f-de0da8ea316e",
         "label": "Actas de las sesiones del ayuntamiento anos 2007 2023",
         "description": "",
         "transparency_report": ""
       },
       {
-        "id": "2665d340-8d8c-444c-89c4-a45dc20179b1",
+        "id": "d7b4aa54-6fe8-4592-8da7-0628ec27186a",
         "label": "Calendarización y asistencia a sesiones y comisiones",
         "description": "",
-        "transparency_report": ""
+        "transparency_report": "",
+        "children": [
+          {
+            "id": "13584001-32a4-4b50-a116-92db34333aec",
+            "label": "2017",
+            "description": "",
+            "transparency_report": ""
+          },
+          {
+            "id": "e7abe609-722c-459e-9e73-846fb0f41649",
+            "label": "2012",
+            "description": "",
+            "transparency_report": ""
+          },
+          {
+            "id": "42cad163-f77d-4d42-a8ad-cf790be5955b",
+            "label": "2018",
+            "description": "",
+            "transparency_report": ""
+          },
+          {
+            "id": "3bebd8eb-3655-4b9f-8bc9-531d70b1da18",
+            "label": "2010",
+            "description": "",
+            "transparency_report": ""
+          },
+          {
+            "id": "28a72ee4-da23-47fa-b5ec-a01ae922be42",
+            "label": "2016",
+            "description": "",
+            "transparency_report": ""
+          },
+          {
+            "id": "0b89456f-0ca3-4cb2-9f4c-c19980e70784",
+            "label": "2021",
+            "description": "",
+            "transparency_report": ""
+          },
+          {
+            "id": "4d2e71b6-b92a-4fc5-b7b3-6816917c2e23",
+            "label": "2019",
+            "description": "",
+            "transparency_report": ""
+          },
+          {
+            "id": "58de733f-2921-41b6-9bb9-bb78b223c901",
+            "label": "2011",
+            "description": "",
+            "transparency_report": ""
+          },
+          {
+            "id": "94b03f61-10eb-4a25-9a68-dea816c181cc",
+            "label": "2014",
+            "description": "",
+            "transparency_report": ""
+          },
+          {
+            "id": "a45dd204-5011-4a66-89e1-927b21b188df",
+            "label": "2009",
+            "description": "",
+            "transparency_report": ""
+          },
+          {
+            "id": "2b6333f9-e252-49ec-a67c-9520cfeb7b5f",
+            "label": "2020",
+            "description": "",
+            "transparency_report": ""
+          },
+          {
+            "id": "90c09a34-cc6e-4cea-9b1f-9850bcee500b",
+            "label": "2022",
+            "description": "",
+            "transparency_report": ""
+          },
+          {
+            "id": "df0a525a-71d8-4f3b-9d7c-661e3d7fee30",
+            "label": "2015",
+            "description": "",
+            "transparency_report": ""
+          },
+          {
+            "id": "7ec0b439-94a7-4912-b502-acddcbdd13da",
+            "label": "2013",
+            "description": "",
+            "transparency_report": ""
+          }
+        ]
       },
       {
-        "id": "43bc7837-f44e-4d4e-a5fa-526192b0d9c2",
+        "id": "d8a3cd4a-87b2-4371-80fa-e87a23e993c2",
         "label": "Calendarización y asistencia a sesiones y Comisiones 2023",
         "description": "",
         "transparency_report": ""
       },
       {
-        "id": "e028df5e-26d5-44eb-aa4c-22814c0de97c",
+        "id": "c91e1b30-fcaa-466c-8226-f84454993161",
         "label": "Calendarización y asistencia a sesiones y Comisiones 2024",
         "description": "",
         "transparency_report": ""
@@ -132,512 +199,11 @@
     ]
   },
   {
-    "id": "7457801a-104a-4741-ac01-264819e009de",
-    "label": "Gacetas municipales",
-    "src_image": "/images/icons/news-paper.svg",
-    "link": "",
-    "order": 3,
-    "children": [
-      {
-        "id": "0d0ae75c-b675-4d5c-99d2-4dd58c121038",
-        "label": "2020",
-        "description": "",
-        "transparency_report": ""
-      },
-      {
-        "id": "4081bb4c-5960-4693-b646-f619a293278c",
-        "label": "2019",
-        "description": "",
-        "transparency_report": ""
-      },
-      {
-        "id": "74887335-5580-48d6-b9a2-323f8e5fd104",
-        "label": "2017",
-        "description": "",
-        "transparency_report": ""
-      },
-      {
-        "id": "3018d3ef-e97b-4c09-b952-257137a7d436",
-        "label": "2018",
-        "description": "",
-        "transparency_report": ""
-      },
-      {
-        "id": "cf464ea1-3af3-494c-bf5f-605d10c912c7",
-        "label": "2016",
-        "description": "",
-        "transparency_report": ""
-      },
-      {
-        "id": "e2d8841c-2ee5-46e6-8fec-429460702196",
-        "label": "2022",
-        "description": "",
-        "transparency_report": ""
-      },
-      {
-        "id": "c2643643-a024-4143-a2da-352d1eaf1e8c",
-        "label": "2024",
-        "description": "",
-        "transparency_report": ""
-      },
-      {
-        "id": "b75fdc90-aaa3-4e72-8872-e444d337a7ec",
-        "label": "2006",
-        "description": "",
-        "transparency_report": ""
-      },
-      {
-        "id": "c1077e7c-1890-4b97-a712-3099c6457e07",
-        "label": "2023",
-        "description": "",
-        "transparency_report": ""
-      },
-      {
-        "id": "1441acab-20c5-4f17-be52-e4ab60878814",
-        "label": "2011",
-        "description": "",
-        "transparency_report": ""
-      },
-      {
-        "id": "a834a5b8-2b00-476b-bfd4-907b0d40d47e",
-        "label": "2007",
-        "description": "",
-        "transparency_report": ""
-      },
-      {
-        "id": "3fc68d0c-9a7c-486d-825c-431ba4ca5cbf",
-        "label": "2014",
-        "description": "",
-        "transparency_report": ""
-      },
-      {
-        "id": "569d078d-fa0a-42fc-9236-e14dc1bb8871",
-        "label": "2012",
-        "description": "",
-        "transparency_report": ""
-      },
-      {
-        "id": "9bed0ed1-6054-4fe3-a3f7-9fbccca3ad1a",
-        "label": "2013",
-        "description": "",
-        "transparency_report": ""
-      },
-      {
-        "id": "829e6bb4-1e22-44fd-a46a-aef65054551e",
-        "label": "2008",
-        "description": "",
-        "transparency_report": ""
-      },
-      {
-        "id": "c74dfeb1-6587-4f34-9667-43d58cc80436",
-        "label": "2021",
-        "description": "",
-        "transparency_report": ""
-      },
-      {
-        "id": "ed23fd0c-ae4b-4f0d-91ef-b8988264249d",
-        "label": "2015",
-        "description": "",
-        "transparency_report": ""
-      },
-      {
-        "id": "af971c4f-6be8-4c5e-b4f8-e25f7cf650a7",
-        "label": "2010",
-        "description": "",
-        "transparency_report": ""
-      },
-      {
-        "id": "276a788e-0b65-4769-9d81-d3a1f2435672",
-        "label": "2009",
-        "description": "",
-        "transparency_report": ""
-      }
-    ]
-  },
-  {
-    "id": "d35688dd-4b15-494c-8f0c-5e97bc3b5fe3",
-    "label": "Normatividad",
-    "src_image": "/images/icons/hammer.svg",
-    "link": "",
-    "order": 4,
-    "children": [
-      {
-        "id": "0074b43f-253c-4ded-a0fa-40c80429d6c8",
-        "label": "Marco juridico y normativo",
-        "description": "",
-        "transparency_report": ""
-      },
-      {
-        "id": "190acdac-95fc-4d07-a397-74af4a8e1ad4",
-        "label": "acuerdos",
-        "description": "",
-        "transparency_report": ""
-      },
-      {
-        "id": "d4c85aa1-0617-4920-8eac-443d07eb1dc8",
-        "label": "Tratados internaciónales",
-        "description": "",
-        "transparency_report": ""
-      },
-      {
-        "id": "fd5fc5b3-86dc-4f08-9436-3a0d9280f7ca",
-        "label": "convenios",
-        "description": "",
-        "transparency_report": ""
-      },
-      {
-        "id": "920bb328-26e6-432f-a417-65e2422931bb",
-        "label": "Reglamentos de leyes estatales",
-        "description": "",
-        "transparency_report": ""
-      },
-      {
-        "id": "f409d7fa-6d5e-4509-b1f2-4cdc513aa3ac",
-        "label": "Plan municipal de desarrollo urbano",
-        "description": "",
-        "transparency_report": ""
-      },
-      {
-        "id": "42ed6095-cc5c-4b98-970d-44f1ac893894",
-        "label": "Instituto municipal de planeación urbana y Convivencia de Monterrey formato 96 IX Disposiciones administrativas",
-        "description": "",
-        "transparency_report": ""
-      },
-      {
-        "id": "b814999e-01c6-4264-9d44-7cba1f6775dd",
-        "label": "Reglamentos municipales de Monterrey",
-        "description": "",
-        "transparency_report": ""
-      },
-      {
-        "id": "2a23aa89-b914-49ca-ba72-5322b5df02ca",
-        "label": "constituciones",
-        "description": "",
-        "transparency_report": ""
-      },
-      {
-        "id": "b6d41636-84f6-4cd3-b773-6744c1041a45",
-        "label": "Lineamientos naciónales aplicables",
-        "description": "",
-        "transparency_report": ""
-      },
-      {
-        "id": "13f2a437-4618-4472-9098-a395970d48fa",
-        "label": "Instituto de la juventud regia formato 96 IX Disposiciones administrativas",
-        "description": "",
-        "transparency_report": ""
-      },
-      {
-        "id": "580c6a8b-ebb1-4cd7-a995-053afae363f1",
-        "label": "gestión documental",
-        "description": "",
-        "transparency_report": ""
-      },
-      {
-        "id": "fd1d9a18-c845-481d-9ad3-0e5c2a522f18",
-        "label": "Planes municipales de desarrollo",
-        "description": "",
-        "transparency_report": ""
-      },
-      {
-        "id": "f98d224c-80ed-4113-b98a-b63a589cf29f",
-        "label": "Secretaria del ayuntamiento formato 96 IX Disposiciones administrativas",
-        "description": "",
-        "transparency_report": ""
-      },
-      {
-        "id": "74b24be9-548e-4bd2-9c77-bb206f5f738b",
-        "label": "Formato 95 i normatividad aplicable a cada Sujeto obligado",
-        "description": "",
-        "transparency_report": ""
-      },
-      {
-        "id": "870185fa-48af-4e23-a726-5426dc219358",
-        "label": "Manuales administrativos de integración Organizaciónales y lineamientos",
-        "description": "",
-        "transparency_report": ""
-      },
-      {
-        "id": "31b91e6d-7462-427b-a2b6-82ac47bda488",
-        "label": "Instituto de las mujeres regias formato 96 IX Disposiciones administrativas",
-        "description": "",
-        "transparency_report": ""
-      },
-      {
-        "id": "e0451c78-de82-435a-8c64-6b4d1396375c",
-        "label": "Lineamientos estatales aplicables",
-        "description": "",
-        "transparency_report": ""
-      },
-      {
-        "id": "d78010f1-d801-471a-a57b-00f59ff790b2",
-        "label": "Leyes reglamentos y codigos federales aplicables",
-        "description": "",
-        "transparency_report": ""
-      },
-      {
-        "id": "3c87a2df-bf3f-4202-ac10-9c3cfc98a579",
-        "label": "Tratamiento de datos personales",
-        "description": "",
-        "transparency_report": ""
-      },
-      {
-        "id": "07c9bfa7-d54c-42f5-9040-6f61a7184e56",
-        "label": "codigos",
-        "description": "",
-        "transparency_report": ""
-      },
-      {
-        "id": "fdad3215-1b69-4018-ab3d-453a8bb3297a",
-        "label": "Leyes y codigos estatales aplicables",
-        "description": "",
-        "transparency_report": ""
-      },
-      {
-        "id": "22bc2e47-6455-4fbb-a186-71fdd58031d2",
-        "label": "Acuerdos del grupo interdisciplinario de Archivos de Monterrey",
-        "description": "",
-        "transparency_report": ""
-      },
-      {
-        "id": "82bae385-e712-4875-8164-1d5de2bb5526",
-        "label": "decretos",
-        "description": "",
-        "transparency_report": ""
-      }
-    ]
-  },
-  {
-    "id": "f4ebca07-c5fa-42ef-879c-7ed38d0fea5e",
-    "label": "Consulta información fiscal (ITDIF)",
-    "src_image": "/images/icons/document.svg",
-    "link": "",
-    "order": 5,
-    "children": [
-      {
-        "id": "6e494bc5-dbaf-4d2f-9343-efb734a67394",
-        "label": "Vi estadisticas fiscales",
-        "description": "",
-        "transparency_report": ""
-      },
-      {
-        "id": "9901615d-1215-40ce-81b0-b842aebab06f",
-        "label": "II marco programatico presupuestal",
-        "description": "",
-        "transparency_report": ""
-      },
-      {
-        "id": "493acc1e-5fc4-440e-900d-0a9a78398a68",
-        "label": "III costos operativos",
-        "description": "",
-        "transparency_report": ""
-      },
-      {
-        "id": "c7732654-bd19-4a1d-b43b-c9e8780bab4c",
-        "label": "V evaluación de resultados",
-        "description": "",
-        "transparency_report": ""
-      },
-      {
-        "id": "b81dc997-a917-4ef4-908b-84e53491742e",
-        "label": "Iv rendición de cuentas",
-        "description": "",
-        "transparency_report": ""
-      },
-      {
-        "id": "a3770889-d632-4efb-bd5f-fe126dc2fb8c",
-        "label": "I marco regulatorio",
-        "description": "",
-        "transparency_report": ""
-      }
-    ]
-  },
-  {
-    "id": "d3d83ab5-7a6c-4dfc-894f-27955894b17b",
+    "id": "37e86d00-87bb-447d-b1a9-6b51321b8bdc",
     "label": "Consulta los conjuntos de datos abiertos",
     "src_image": "/images/icons/database.svg",
     "link": "https://datos.monterrey.gob.mx/",
     "order": 7,
     "children": []
-  },
-  {
-    "id": "4db3d758-5a3e-432f-8bda-b9ccb527e170",
-    "label": "Solicita información pública de tu interés",
-    "src_image": "/images/icons/lamp.svg",
-    "link": "",
-    "order": 8,
-    "children": [
-      {
-        "id": "b1f62d15-de7a-4524-b09b-8553a4cc49bd",
-        "label": "Informes indicadores metas estadisticas y programas",
-        "description": "",
-        "transparency_report": ""
-      },
-      {
-        "id": "9ad19444-d92f-44b4-97e5-7414fa0f116e",
-        "label": "Calendario de actividades culturales Deportivas y recreativas",
-        "description": "",
-        "transparency_report": ""
-      },
-      {
-        "id": "7e4ef346-5ead-40af-8775-7c10eb0576a0",
-        "label": "Testimonios de testigos sociales",
-        "description": "",
-        "transparency_report": ""
-      },
-      {
-        "id": "90d0d697-5742-406a-8b78-d73b8bce8d0f",
-        "label": "adquisiciones",
-        "description": "",
-        "transparency_report": ""
-      },
-      {
-        "id": "2dbaa53f-5a06-4063-93d8-ba04cabad8da",
-        "label": "Nomina desglose a detalle",
-        "description": "",
-        "transparency_report": ""
-      },
-      {
-        "id": "6a871232-7eb8-478d-93bb-9cde006f9f2a",
-        "label": "Indice de información reservada",
-        "description": "",
-        "transparency_report": ""
-      },
-      {
-        "id": "68a47725-265d-491b-8769-f226f98ddab5",
-        "label": "Presenta tu solicitud en la plataforma Naciónal de transparencia pnt",
-        "description": "",
-        "transparency_report": ""
-      },
-      {
-        "id": "825df1eb-a5a4-455b-ad84-d6f11f95e1d7",
-        "label": "Datos abiertos nl Monterrey",
-        "description": "",
-        "transparency_report": ""
-      },
-      {
-        "id": "ef381196-96cd-4a16-a2dc-95691cef6b68",
-        "label": "Estadisticas de solicitudes de información",
-        "description": "",
-        "transparency_report": ""
-      },
-      {
-        "id": "14333b40-bedf-4393-b6aa-e2260a306093",
-        "label": "Listado de estaciónamientos exclusivos",
-        "description": "",
-        "transparency_report": ""
-      }
-    ]
-  },
-  {
-    "id": "4a4f73ec-60fc-424c-b795-7ee5d6d0885f",
-    "label": "Información histórica 2015-2022",
-    "src_image": "/images/icons/time.svg",
-    "link": "",
-    "order": 9,
-    "children": [
-      {
-        "id": "1d917590-8aae-4436-b298-7f5f9c0a996f",
-        "label": "gestión documental y archivos",
-        "description": "",
-        "transparency_report": ""
-      },
-      {
-        "id": "784c1fd4-6a50-4c2f-bff3-fc0ab0a55b47",
-        "label": "Marco juridico normativo",
-        "description": "",
-        "transparency_report": ""
-      },
-      {
-        "id": "e411706e-25f1-4df0-bd35-680c8ecdc8bc",
-        "label": "ciudadanos",
-        "description": "",
-        "transparency_report": ""
-      },
-      {
-        "id": "877e7ef0-8912-4cf1-914d-6087dbec82db",
-        "label": "ciudadanos",
-        "description": "",
-        "transparency_report": ""
-      },
-      {
-        "id": "59aa31d4-e55a-409b-bbfe-92763c70d9e5",
-        "label": "Transparencia y difusion de información financiera",
-        "description": "",
-        "transparency_report": ""
-      },
-      {
-        "id": "4c8f3b20-40c4-47de-bba4-7052bac2a37f",
-        "label": "Ayuntamiento sesiones y comisiones",
-        "description": "",
-        "transparency_report": ""
-      },
-      {
-        "id": "9f488619-49a9-41c1-8a12-3dd9c3f5d63f",
-        "label": "Sindicatos municipales",
-        "description": "",
-        "transparency_report": ""
-      },
-      {
-        "id": "420e71b5-60a6-4795-bf66-84bb1c6e86aa",
-        "label": "Fideicomisos fondos públicos mandatos o analogos",
-        "description": "",
-        "transparency_report": ""
-      },
-      {
-        "id": "730f632e-aee0-4d57-b08b-286606e305ae",
-        "label": "Evaluaciones estudios y encuestas",
-        "description": "",
-        "transparency_report": ""
-      },
-      {
-        "id": "2d082cb7-af2d-4204-96eb-20c774ffdddd",
-        "label": "Planes municipales indicadores informes y estadisticas",
-        "description": "",
-        "transparency_report": ""
-      },
-      {
-        "id": "e22e5a71-0c0a-45ba-9848-cd9e9dfeb47c",
-        "label": "Estructuras atribuciones y servidores",
-        "description": "",
-        "transparency_report": ""
-      },
-      {
-        "id": "c6de64d2-f92c-4af8-a118-63ca4354cb60",
-        "label": "Adquisiciones obras públicas y desarrollo urbano",
-        "description": "",
-        "transparency_report": ""
-      },
-      {
-        "id": "12b17ed2-4951-4dc2-9fb6-e1b02ec8dae6",
-        "label": "Transparencia proactiva",
-        "description": "",
-        "transparency_report": ""
-      },
-      {
-        "id": "9a469563-2733-4e1c-9802-e7179a1b1d5f",
-        "label": "Tablas de aplicablidad ligas y formatos",
-        "description": "",
-        "transparency_report": ""
-      },
-      {
-        "id": "0ed98197-1011-46f3-8b3b-49e09455d0df",
-        "label": "Contratos licencias y concesiones",
-        "description": "",
-        "transparency_report": ""
-      },
-      {
-        "id": "99d13ab3-233e-4cce-b025-b306064d548a",
-        "label": "Transparencia en adquisiciones obra pública y Desarrollo urbano",
-        "description": "",
-        "transparency_report": ""
-      },
-      {
-        "id": "c72a9f31-d35f-4afc-b3a9-4ed8d70a92ca",
-        "label": "Estructura atribuciones y servidores",
-        "description": "",
-        "transparency_report": ""
-      }
-    ]
   }
 ]
