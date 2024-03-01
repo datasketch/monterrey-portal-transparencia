@@ -37,7 +37,7 @@ try {
         label: "consulta los conjuntos de datos abiertos",
         src_image: "", // TODO: este dato queda pendiente, agregarlo a mano en este caso
         link: "https://datos.monterrey.gob.mx/",
-        children: {} // esta categoría no tiene children, queda vacío
+        children: [] // esta categoría no tiene children, queda vacío
     }
 
     processedJson.push(categoryToExternal);
