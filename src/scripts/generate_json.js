@@ -25,7 +25,7 @@ try {
             label: replaceAll(element.label, "-", " "),
             src_image: "", // TODO: este dato queda pendiente porque no está en el json crudo, de donde lo sacamos?
             link: "", // estas categorias no redirigen a un link externo, queda vacío
-            children: createChildren(originalChildrenArray)
+            children: createChildren(originalChildrenArray, jsonData)
         }
 
         processedJson.push(mainCategoryProcessed);
@@ -52,7 +52,7 @@ function findBy(fatherId, jsonData) {
     return jsonData.filter(item => Array.isArray(item.padre) && item.padre.includes(fatherId));
 }
 
-function createChildren(originalChildrenArray) {
+function createChildren(originalChildrenArray, jsonData) {
     console.log("----------- Creating children categories -----------");
     
     if (Array.isArray(originalChildrenArray)) {
@@ -69,13 +69,13 @@ function createChildren(originalChildrenArray) {
             transparency_report: ""// TODO: tomar los datos del crudo transparency_report.json a partir del id del campo reporte_transparencia? 
         };
 
-        // TODO: acá falta obtener los id de los hijos del jsonData para luego hacer lo siguiente
+        const childrenField = findBy(element.id, jsonData);
         
         // Si el elemento tiene hijos se llama recursivamente la función para ellos
-        if (element.children && Array.isArray(element.children)) {
-            childrenObject.children = createChildren(element.children);
+        if (childrenField && Array.isArray(childrenField)) {
+            childrenObject.children = createChildren(childrenField, jsonData);
         }
-  
+
         processedChildrenArray.push(childrenObject);
       });
 
