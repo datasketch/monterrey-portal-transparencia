@@ -16,18 +16,31 @@ import Accordion from "@/components/Accordion.vue";
         <div class="flex gap-x-16">
           <div class="hidden lg:block lg:w-full lg:max-w-[347px]">
             <div class="bg-indigo-dye p-4 rounded-[5px]">
-              <Accordion :key="category.id" v-for="category in store.getDataByCategory()" :items="category.children" />
+              <Accordion
+                :key="category.id"
+                v-for="category in store.getDataByCategory()"
+                :items="category.children"
+                :id="category.id"
+              />
             </div>
           </div>
           <div class="w-full">
-            <h2 class="text-2xl lg:text-3xl font-semibold first-letter:uppercase">
+            <h2
+              class="text-2xl lg:text-3xl font-semibold first-letter:uppercase"
+            >
               {{ store.getCategory() }}
             </h2>
             <CategoryFilters class="mt-8" />
             <div class="mt-12">
               <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
-                <CategoryCard v-bind:key="n" v-for="n in 12" title="Pacto Internacional de Derechos Civiles y Políticos"
-                  publication-date="12 de Octubre, 2023" :tags="['Tratados', 'Normatividad']" link="/" />
+                <CategoryCard
+                  v-bind:key="n"
+                  v-for="n in 12"
+                  title="Pacto Internacional de Derechos Civiles y Políticos"
+                  publication-date="12 de Octubre, 2023"
+                  :tags="['Tratados', 'Normatividad']"
+                  link="/"
+                />
               </div>
             </div>
           </div>

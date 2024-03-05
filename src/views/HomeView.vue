@@ -63,8 +63,9 @@ watch(store, (newStore) => {
           <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
             <CategoryButton
               v-for="{ id, src_image, label, link } in store.getStructureData()"
-              v-bind:key="id"
+              :key="id"
               :icon-src="src_image"
+              id="inicio"
               :label="label"
               :link="link"
             />

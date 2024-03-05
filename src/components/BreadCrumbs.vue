@@ -1,13 +1,12 @@
 <script setup>
 import { store } from "@/store";
 
-function breadcrumbsHandlerClick(value) {
-  if (value === "Inicio") {
-    // reset states
+function breadcrumbsHandlerClick({ id, label }) {
+  if (label === "Inicio") {
     store.reset();
   } else {
-    // change category and breadcrumbs states
-    // console.log(value);
+    console.log(id);
+    console.log(label);
   }
 }
 </script>
@@ -16,7 +15,7 @@ function breadcrumbsHandlerClick(value) {
     <li
       class="text-[13px] font-medium"
       v-bind:key="index"
-      v-for="(breadcrumb, index) in store.getBreadcrumbs()"
+      v-for="({ id, label }, index) in store.getBreadcrumbs()"
     >
       <div
         class="flex items-center gap-x-2"
@@ -24,14 +23,14 @@ function breadcrumbsHandlerClick(value) {
       >
         <button
           class="text-eerie-black/40 first-letter:uppercase"
-          @click="breadcrumbsHandlerClick(breadcrumb)"
+          @click="breadcrumbsHandlerClick({ id, label })"
         >
-          {{ breadcrumb }}
+          {{ label }}
         </button>
         <img src="/images/icons/chevron-right.svg" alt="chevron right" />
       </div>
       <p v-else class="first-letter:uppercase">
-        {{ breadcrumb }}
+        {{ label }}
       </p>
     </li>
   </ul>
