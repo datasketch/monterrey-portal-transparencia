@@ -1,6 +1,5 @@
 import * as fs from 'fs';
 import { readFileSync } from 'fs';
-import { v4 as uuidv4 } from 'uuid';
 
 const jsonPath = '../data/raw/structure.json';
 try {
@@ -8,9 +7,9 @@ try {
 
     const jsonData = JSON.parse(jsonContent);
 
-    const mainCategories = jsonData.filter(element => {
-        return (element.padre && Array.isArray(element.padre) && element.padre.includes("portal-transparencia"))
-    });
+    const mainCategories = findBy("portal-transparencia", jsonData);
+
+    console.log(mainCategories.length);
 
     const srcPathNames = {
         'Obligaciones de transparencia': '/images/icons/magnifying-glass.svg',
@@ -47,13 +46,13 @@ try {
     mainCategories.forEach(element => {
         console.log("-----------> Creating main category " + element.label);
 
-        const originalChildrenArray = findBy(element.slug, jsonData);
+        const originalChildrenArray = findBy(element.id, jsonData);
 
         console.log("-----------> Creating children categories for " + element.label);
         const mainCategoryProcessed = {
-            id: uuidv4(),
+            id: element.id,
             label: correctText[element.label],
-            src_image: srcPathNames[element.label], // TODO: este dato queda pendiente porque no está en el json crudo, de donde lo sacamos?
+            src_image: srcPathNames[element.label], 
             link: "", // estas categorias no redirigen a un link externo, queda vacío
             order: order[element.label],
             children: createChildren(originalChildrenArray, jsonData),
@@ -64,9 +63,9 @@ try {
 
     // Agrega categoria que redirige a link externo a mano porque no está en el json crudo
     const categoryToExternal = {
-        id: uuidv4(),
+        id: "consulta_los_conjuntos_de_datos_abiertos_portal-transparencia",
         label: "Consulta los conjuntos de datos abiertos",
-        src_image: "/images/icons/database.svg", // TODO: este dato queda pendiente, agregarlo a mano en este caso
+        src_image: "/images/icons/database.svg", 
         link: "https://datos.monterrey.gob.mx/",
         order: 7,
         children: [] // esta categoría no tiene children, queda vacío
@@ -80,48 +79,60 @@ try {
     console.error('Error parsing file:', error.message);
 }
 
-function findBy(slug, jsonData) {
-    return jsonData.filter(item => Array.isArray(item.padre) && item.padre.includes(slug));
+function findBy(id, jsonData) {
+    return jsonData.filter(item => item.to && (item.to === id || item.to === id + "_"));
 }
 
 function createChildren(originalChildrenArray, jsonData) {
-    if (Array.isArray(originalChildrenArray) && originalChildrenArray.length > 0) {
-        const processedChildrenArray = [];
+    const visitedSet = new Set();
 
-        originalChildrenArray.forEach(element => {
+    function createChildrenRecursive(element) {
+        console.log("Creating " + element.label);
 
-            console.log("Creating " + element.label);
-
+        if (!visitedSet.has(element.id)) {
             const childrenObject = {
-                id: uuidv4(),
+                id: element.id,
                 label: element.label,
-                description: "", // TODO: ver de donde sacar este campo
-                transparency_report: ""// TODO: tomar los datos del crudo transparency_report.json a partir del id del campo reporte_transparencia? 
+                description: "",
+                transparency_report: ""
             };
 
+            // Marcar como visitado antes de procesar hijos
+            visitedSet.add(element.id);
 
-            // TODO: definir en qué momento crear el subarreglo
-            if (!/\d{4}/.test(element.slug) || Array.isArray(element.reporte_transparencia)) {
-                const childrenField = findBy(element.slug, jsonData);
-    
-                // Si el elemento tiene hijos se llama recursivamente la función para ellos
-                if (childrenField && Array.isArray(childrenField) && childrenField.length > 0) {
-                    childrenObject.children = createChildren(childrenField, jsonData);
-                }
+            const childrenField = findBy(element.id, jsonData);
+
+            // Llegué al nodo final, creo el reporte de transparencia
+            if (hasTransparencyReport(element)) {
+                childrenObject.transparency_report = createTransparencyReport(element);
+            } else {
+                 // Filtrar y mapear solo los elementos no nulos
+                 childrenObject.children = childrenField.map(child => createChildrenRecursive(child)).filter(child => child !== null);
             }
-            
-            processedChildrenArray.push(childrenObject);
 
-        });
+            return childrenObject;
+        }
 
-        return processedChildrenArray;
+        return null;  // Si ya fue visitado, devolvemos null
     }
-    return originalChildrenArray;
+
+    // Iniciar el procesamiento con los elementos originales
+    const processedArray = originalChildrenArray.map(element => createChildrenRecursive(element)).filter(child => child !== null);
+
+    // Limpiar el conjunto de visitados para futuros procesamientos
+    visitedSet.clear();
+
+    return processedArray;
 }
 
-// function replaceAll(str, search, replacement) {
-//     return str.split(search).join(replacement);
-// }
+function hasTransparencyReport(element) {
+    return element.reporte_transparencia && Array.isArray(element.reporte_transparencia) && element.reporte_transparencia.length > 0;
+}
+
+function createTransparencyReport(element) {
+    // TODO: acá hay que obtener los links de reporte transparencia del otro json a partir de los ids de este arreglo
+    return element.reporte_transparencia;
+}
 
 function writeFile(processedJson) {
     const filePath = '../data/processed/structure.json';
