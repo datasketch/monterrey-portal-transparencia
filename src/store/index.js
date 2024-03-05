@@ -44,6 +44,7 @@ export const store = reactive({
             } else {
                 // modify breadcrumb
                 this.breadcrumbs[findBreadcrumbById] = { id, label }
+                this.breadcrumbs = this.breadcrumbs.slice(0, findBreadcrumbById + 1)
             }
         } else {
             // add breadcrumb
