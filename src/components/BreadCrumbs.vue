@@ -7,6 +7,7 @@ function breadcrumbsHandlerClick(value) {
     store.reset();
   } else {
     // change category and breadcrumbs states
+    // console.log(value);
   }
 }
 </script>

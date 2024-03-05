@@ -31,7 +31,15 @@ export const store = reactive({
 
     // breadcrumbs
     setBreadcrumbs(value) {
-        this.breadcrumbs.push(value)
+        if (this.breadcrumbs.includes(value)) {
+            // Remove
+            const id = this.breadcrumbs.findIndex((item) => item === value)
+            const newBreadcrumbsData = this.breadcrumbs.slice(0, id)
+            this.breadcrumbs = newBreadcrumbsData
+        } else {
+            // Add
+            this.breadcrumbs.push(value)
+        }
     },
     getBreadcrumbs() {
         return this.breadcrumbs
