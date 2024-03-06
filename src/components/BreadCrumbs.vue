@@ -11,9 +11,9 @@ function breadcrumbsHandlerClick({ id, label }) {
 }
 </script>
 <template>
-  <ul class="flex items-center gap-x-2">
+  <ul class="flex items-center gap-x-2 overflow-y-scroll u-no-scroll">
     <li
-      class="text-[13px] font-medium"
+      class="text-[13px] font-medium flex-shrink-0"
       v-bind:key="index"
       v-for="({ id, label }, index) in store.getBreadcrumbs()"
     >
@@ -22,7 +22,7 @@ function breadcrumbsHandlerClick({ id, label }) {
         v-if="index + 1 !== store.getBreadcrumbs().length"
       >
         <button
-          class="text-eerie-black/40 first-letter:uppercase"
+          class="text-eerie-black/40 first-letter:uppercase flex-shrink-0"
           @click="breadcrumbsHandlerClick({ id, label })"
         >
           {{ label }}
