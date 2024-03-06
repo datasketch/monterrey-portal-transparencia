@@ -2,16 +2,25 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer base {}
-@layer components {}
+@layer base {
+}
+@layer components {
+}
 @layer utilities {
-    .u-container {
-        @apply w-11/12 lg:w-10/12 mx-auto max-w-screen-2xl;
-    }
-    .u-shadow {
-        box-shadow: 0px 20px 27px 0px rgba(0, 0, 0, 0.05);
-    }
-    .u-shadow-2 {
-        box-shadow: 0px 10px 20px 0px rgba(0, 0, 0, 0.05);
-    }
+  .u-container {
+    @apply w-11/12 lg:w-10/12 mx-auto max-w-screen-2xl;
+  }
+  .u-shadow {
+    box-shadow: 0px 20px 27px 0px rgba(0, 0, 0, 0.05);
+  }
+  .u-shadow-2 {
+    box-shadow: 0px 10px 20px 0px rgba(0, 0, 0, 0.05);
+  }
+  .u-no-scroll::-webkit-scrollbar {
+    display: none;
+  }
+  .u-no-scroll {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
 }

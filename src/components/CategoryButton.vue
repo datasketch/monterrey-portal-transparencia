@@ -6,6 +6,10 @@ defineProps({
     type: String,
     required: true,
   },
+  id: {
+    type: String,
+    required: true,
+  },
   label: {
     type: String,
     required: true,
@@ -16,11 +20,9 @@ defineProps({
   },
 });
 
-function categoryHandlerClick(event) {
-  const buttonElement = event.target.closest("button");
-  const id = buttonElement.getAttribute("data-id");
-  store.setCategory(id);
-  store.setBreadcrumbs(id);
+function categoryHandlerClick({ id, label }) {
+  store.setCategory(label);
+  store.setBreadcrumbs({ id, label });
 }
 </script>
 
@@ -28,8 +30,7 @@ function categoryHandlerClick(event) {
   <button
     v-if="!link"
     class="bg-white text-left p-4 rounded-[10px] u-shadow-2 hover:bg-indigo-dye hover:text-white duration-300"
-    :data-id="label"
-    @click="categoryHandlerClick"
+    @click="() => categoryHandlerClick({ id, label })"
   >
     <div class="flex items-center gap-x-4">
       <div class="flex-shrink-0">
@@ -52,7 +53,7 @@ function categoryHandlerClick(event) {
     target="_blank"
     v-else
   >
-  <div class="flex items-center gap-x-4">
+    <div class="flex items-center gap-x-4">
       <div class="flex-shrink-0">
         <div
           class="w-10 h-10 bg-indigo-dye rounded-[10px] grid place-items-center"
