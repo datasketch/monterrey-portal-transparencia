@@ -138,7 +138,7 @@ function createTransparencyReport(id, reportJsonData) {
 
     reports.forEach(element => {
         const report = {
-            //"title": "", TODO: de donde sale esto?
+            "title": element.fraccion_nombre_del_documento,
             "description": element.descripcion,
             "link": element.documentos[0],
             "year": element.ano_de_inicio || element.ano_de_finalizacion,
