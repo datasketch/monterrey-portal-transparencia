@@ -61,6 +61,8 @@ export const store = reactive({
 
   //   reports
   setReports(reports) {
+    // reset
+    this.resetReports();
     this.reports.push(...reports);
   },
   getReports() {
