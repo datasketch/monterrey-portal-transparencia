@@ -1,13 +1,16 @@
 import * as fs from 'fs';
 import { readFileSync } from 'fs';
 
-const jsonPath = '../data/raw/structure.json';
+const structureJsonPath = '../data/raw/structure.json';
+const reportJsonPath = '../data/raw/transparency_report.json';
+
 try {
-    const jsonContent = readFileSync(jsonPath, 'utf-8');
+    const structureJsonContent = readFileSync(structureJsonPath, 'utf-8');
+    const structureJsonData = JSON.parse(structureJsonContent);
+    const reportJsonContent = readFileSync(reportJsonPath, 'utf-8');
+    const reportJsonData = JSON.parse(reportJsonContent);
 
-    const jsonData = JSON.parse(jsonContent);
-
-    const mainCategories = findBy("portal-transparencia", jsonData);
+    const mainCategories = findBy("portal-transparencia", structureJsonData);
 
     console.log(mainCategories.length);
 
@@ -46,7 +49,7 @@ try {
     mainCategories.forEach(element => {
         console.log("-----------> Creating main category " + element.label);
 
-        const originalChildrenArray = findBy(element.id, jsonData);
+        const originalChildrenArray = findBy(element.id, structureJsonData);
 
         console.log("-----------> Creating children categories for " + element.label);
         const mainCategoryProcessed = {
@@ -55,7 +58,7 @@ try {
             src_image: srcPathNames[element.label], 
             link: "", // estas categorias no redirigen a un link externo, queda vacío
             order: order[element.label],
-            children: createChildren(originalChildrenArray, jsonData),
+            children: createChildren(originalChildrenArray, structureJsonData, reportJsonData),
         }
 
         processedJson.push(mainCategoryProcessed);
@@ -79,11 +82,11 @@ try {
     console.error('Error parsing file:', error.message);
 }
 
-function findBy(id, jsonData) {
-    return jsonData.filter(item => item.to && (item.to === id || item.to === id + "_"));
+function findBy(id, structureJsonData) {
+    return structureJsonData.filter(item => item.to && (item.to === id || item.to === id + "_"));
 }
 
-function createChildren(originalChildrenArray, jsonData) {
+function createChildren(originalChildrenArray, structureJsonData, reportJsonData) {
     const visitedSet = new Set();
 
     function createChildrenRecursive(element) {
@@ -94,17 +97,17 @@ function createChildren(originalChildrenArray, jsonData) {
                 id: element.id,
                 label: element.label,
                 description: "",
-                transparency_report: ""
+                reports: []
             };
 
             // Marcar como visitado antes de procesar hijos
             visitedSet.add(element.id);
 
-            const childrenField = findBy(element.id, jsonData);
+            const childrenField = findBy(element.id, structureJsonData);
 
             // Llegué al nodo final, creo el reporte de transparencia
-            if (hasTransparencyReport(element)) {
-                childrenObject.transparency_report = createTransparencyReport(element);
+            if (hasTransparencyReport(element) && Array.isArray(childrenField) && childrenField.length == 0) {
+                childrenObject.reports = createTransparencyReport(element.id, reportJsonData);
             } else {
                  // Filtrar y mapear solo los elementos no nulos
                  childrenObject.children = childrenField.map(child => createChildrenRecursive(child)).filter(child => child !== null);
@@ -129,9 +132,23 @@ function hasTransparencyReport(element) {
     return element.reporte_transparencia && Array.isArray(element.reporte_transparencia) && element.reporte_transparencia.length > 0;
 }
 
-function createTransparencyReport(element) {
-    // TODO: acá hay que obtener los links de reporte transparencia del otro json a partir de los ids de este arreglo
-    return element.reporte_transparencia;
+function createTransparencyReport(id, reportJsonData) {
+    const reports = reportJsonData.filter(item => item.slug && item.slug.includes(id));
+    const processedReports = [];
+
+    reports.forEach(element => {
+        const report = {
+            //"title": "", TODO: de donde sale esto?
+            "description": element.descripcion,
+            "link": element.documentos[0],
+            "year": element.ano_de_inicio || element.ano_de_finalizacion,
+            "month": element.mes_de_inicio || element.mes_de_finalizacion
+            //"tags": "", TODO: de donde sale esto?
+        }
+        processedReports.push(report);
+    });
+
+    return processedReports;
 }
 
 function writeFile(processedJson) {
