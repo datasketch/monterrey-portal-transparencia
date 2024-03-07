@@ -29,15 +29,19 @@ defineProps({
     <div class="mt-3 flex items-center justify-between">
       <ul class="flex items-center gap-x-1.5">
         <li
-          v-bind:key="i"
+          v-bind:key="`tag-${i + 1}`"
           v-for="(tag, i) in tags"
           class="text-[10px] text-indigo-dye py-1 px-2 rounded-[10px] bg-indigo-dye/10"
         >
           {{ tag }}
         </li>
       </ul>
-      <div>
-        <a class="inline-flex items-center gap-x-2" href="/">
+      <div v-if="link">
+        <a
+          class="inline-flex items-center gap-x-2"
+          :href="link"
+          target="_blank"
+        >
           <p class="text-indigo-dye font-medium">Descargar</p>
           <img src="/images/icons/download.svg" alt="download icon" />
         </a>

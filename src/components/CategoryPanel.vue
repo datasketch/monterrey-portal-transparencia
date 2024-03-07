@@ -32,16 +32,20 @@ import Accordion from "@/components/Accordion.vue";
             </h2>
             <CategoryFilters class="mt-8" />
             <div class="mt-12">
-              <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+              <div
+                v-if="store.getReports().length !== 0"
+                class="grid grid-cols-1 md:grid-cols-2 gap-5"
+              >
                 <CategoryCard
-                  v-bind:key="n"
-                  v-for="n in 12"
-                  title="Pacto Internacional de Derechos Civiles y Políticos"
-                  publication-date="12 de Octubre, 2023"
+                  :key="`report-${i + 1}`"
+                  v-for="(report, i) in store.getReports()"
+                  :title="report?.title || report?.description"
+                  :publication-date="report?.date"
                   :tags="['Tratados', 'Normatividad']"
-                  link="/"
+                  :link="report?.link"
                 />
               </div>
+              <p class="text-xs" v-else>Sin reportes</p>
             </div>
           </div>
         </div>
