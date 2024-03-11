@@ -96,7 +96,6 @@ function createChildren(originalChildrenArray, structureJsonData, reportJsonData
             const childrenObject = {
                 id: element.id,
                 label: element.label,
-                description: "",
                 reports: []
             };
 
