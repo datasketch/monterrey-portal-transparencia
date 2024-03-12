@@ -1,17 +1,17 @@
 <script setup>
-import CategoryButton from "@/components/CategoryButton.vue";
-import Filters from "@/components/Filters.vue";
-import { store } from "@/store";
-import CategoryPanel from "@/components/CategoryPanel.vue";
-import { watch } from "vue";
+import CategoryButton from '@/components/CategoryButton.vue';
+import Filters from '@/components/Filters.vue';
+import { store } from '@/store';
+import CategoryPanel from '@/components/CategoryPanel.vue';
+import { watch } from 'vue';
 
 // effects
 watch(store, (newStore) => {
   if (newStore.getCategory()) {
     window.scrollTo({
-      top: "155",
-      left: "0",
-      behavior: "smooth",
+      top: '155',
+      left: '0',
+      behavior: 'smooth',
     });
   }
 });
