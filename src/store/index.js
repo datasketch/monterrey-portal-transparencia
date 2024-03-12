@@ -1,14 +1,16 @@
-import { reactive } from "vue";
-import structureData from "@/data/processed/structure.json";
+import { reactive } from 'vue';
+import structureData from '@/data/processed/structure.json';
 
 export const store = reactive({
   // data
   structureData,
 
   // states
-  category: "",
-  breadcrumbs: [{ id: "", label: "Inicio" }],
+  category: '',
+  breadcrumbs: [{ id: '', label: 'Inicio' }],
   reports: [],
+  // filters
+  search: '',
 
   // get and set
 
@@ -71,9 +73,35 @@ export const store = reactive({
   resetReports() {
     return (this.reports = []);
   },
+  filteredReports() {
+    let filteredData = this.reports;
+    if (this.search) {
+      filteredData = filteredData.filter(
+        (report) =>
+          report?.title?.includes(this.search) ||
+          report?.description?.includes(this.search)
+      );
+    }
+    return filteredData;
+  },
 
-  // methods
+  // search
+  setSearch(value) {
+    this.search = value;
+    this.filteredReports();
+  },
+  getSearch() {
+    return this.search;
+  },
+  resetSearch() {
+    this.search = '';
+  },
+
+  // reset
   reset() {
-    (this.category = ""), (this.breadcrumbs = [{ id: "", label: "Inicio" }]);
+    (this.category = ''),
+      (this.breadcrumbs = [{ id: '', label: 'Inicio' }]),
+      (this.reports = []),
+      (this.search = '');
   },
 });

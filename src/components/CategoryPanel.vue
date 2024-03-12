@@ -1,11 +1,11 @@
 <!-- eslint-disable vue/no-use-v-if-with-v-for -->
 
 <script setup>
-import BreadCrumbs from "@/components/BreadCrumbs.vue";
-import CategoryFilters from "@/components/CategoryFilters.vue";
-import { store } from "@/store";
-import CategoryCard from "@/components/CategoryCard.vue";
-import Accordion from "@/components/Accordion.vue";
+import BreadCrumbs from '@/components/BreadCrumbs.vue';
+import CategoryFilters from '@/components/CategoryFilters.vue';
+import { store } from '@/store';
+import CategoryCard from '@/components/CategoryCard.vue';
+import Accordion from '@/components/Accordion.vue';
 </script>
 
 <template>
@@ -38,7 +38,7 @@ import Accordion from "@/components/Accordion.vue";
               >
                 <CategoryCard
                   :key="`report-${i + 1}`"
-                  v-for="(report, i) in store.getReports()"
+                  v-for="(report, i) in store.filteredReports()"
                   :title="report?.title || report?.description"
                   :publication-date="report?.date"
                   :tags="['Tratados', 'Normatividad']"
