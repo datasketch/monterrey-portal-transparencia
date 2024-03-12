@@ -78,8 +78,8 @@ export const store = reactive({
     if (this.search) {
       filteredData = filteredData.filter(
         (report) =>
-          report?.title?.includes(this.search) ||
-          report?.description?.includes(this.search)
+          report?.title?.toLowerCase().includes(this.search.toLowerCase()) ||
+          report?.description?.toLowerCase().includes(this.search.toLowerCase())
       );
     }
     return filteredData;
