@@ -171,8 +171,7 @@ function createTransparencyReport(id, reportJsonData) {
       link: element.documentos[0],
       year: element.ano_de_inicio || element.ano_de_finalizacion,
       month: element.mes_de_inicio || element.mes_de_finalizacion,
-      date: element.fecha,
-      //"tags": "", TODO: de donde sale esto?
+      date: element.fecha
     };
     processedReports.push(report);
   });
