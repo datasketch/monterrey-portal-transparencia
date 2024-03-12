@@ -3,7 +3,7 @@
 <script setup>
 import { Disclosure, DisclosureButton, DisclosurePanel } from "@headlessui/vue";
 import { PlusIcon, MinusIcon } from "@heroicons/vue/24/solid";
-import { ref } from "vue";
+import { ref, toRaw } from "vue";
 import { store } from "@/store";
 
 defineProps({
@@ -28,9 +28,14 @@ function hideOther(id) {
   disclosure.value.filter((_, i) => i !== id).forEach((c) => c());
 }
 
-function accordionHandlerClick(idx, { id, label }) {
+function accordionHandlerClick(idx, { id, label }, reports) {
   hideOther(idx);
   store.setBreadcrumbs({ id, label });
+  if (toRaw(reports).length === 0) {
+    store.resetReports();
+  } else {
+    store.setReports(reports);
+  }
 }
 </script>
 
@@ -43,7 +48,11 @@ function accordionHandlerClick(idx, { id, label }) {
     <DisclosureButton
       :ref="(_) => (disclosure[idx] = close)"
       class="flex items-center justify-between text-left p-2 w-full duration-300"
-      @click="() => accordionHandlerClick(idx, { id, label: item.label })"
+      :data-reports="item.reports"
+      @click="
+        () =>
+          accordionHandlerClick(idx, { id, label: item.label }, item.reports)
+      "
       :class="(open && 'bg-white') || (isSubcategory && 'bg-[#3D697D]')"
     >
       <p
