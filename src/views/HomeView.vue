@@ -1,12 +1,14 @@
 <script setup>
 import CategoryButton from '@/components/CategoryButton.vue';
-import Filters from '@/components/Filters.vue';
+import CategoryFilters from '@/components/CategoryFilters.vue';
 import { store } from '@/store';
 import CategoryPanel from '@/components/CategoryPanel.vue';
+import CategoryCard from '@/components/CategoryCard.vue';
 import { watch } from 'vue';
 
 // effects
 watch(store, (newStore) => {
+  console.log(newStore);
   if (newStore.getCategory()) {
     window.scrollTo({
       top: '155',
@@ -42,10 +44,13 @@ watch(store, (newStore) => {
     </div>
     <div class="pt-12">
       <div class="u-container">
-        <Filters />
+        <div class="bg-white py-6 px-10 rounded-[5px] u-shadow">
+          <h4 class="font-bold text-[13px]">Filtros</h4>
+          <CategoryFilters class="mt-4" :has-categories="false" />
+        </div>
       </div>
     </div>
-    <div class="py-12 lg:py-16 xl:py-20">
+    <div v-if="!store.getSearch()" class="py-12 lg:py-16 xl:py-20">
       <div class="u-container">
         <p class="font-light">
           Con el firme compromiso de mantenerla actualizada en este micrositio
@@ -73,7 +78,10 @@ watch(store, (newStore) => {
         </div>
       </div>
     </div>
-    <div class="py-12 lg:py-16 xl:py-20 bg-carolina-blue bg-opacity-[5.35%]">
+    <div
+      v-if="!store.getSearch()"
+      class="py-12 lg:py-16 xl:py-20 bg-carolina-blue bg-opacity-[5.35%]"
+    >
       <div class="u-container">
         <div
           class="flex flex-col gap-y-8 md:flex-row md:items-center md:gap-x-12 lg:gap-x-16 xl:gap-x-20"
@@ -175,7 +183,7 @@ watch(store, (newStore) => {
         </div>
       </div>
     </div>
-    <div class="py-12 bg-white-2">
+    <div v-if="!store.getSearch()" class="py-12 bg-white-2">
       <div class="u-container">
         <div class="flex flex-wrap justify-center xl:flex-nowrap gap-5">
           <div class="xl:w-1/6 max-w-[184px] h-[100px]">
@@ -245,6 +253,22 @@ watch(store, (newStore) => {
             </a>
           </div>
         </div>
+      </div>
+    </div>
+    <div v-else class="py-12 lg:py-16 xl:py-20">
+      <div class="u-container">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+          <CategoryCard
+            :key="`report-${i + 1}`"
+            v-for="(report, i) in store.filteredReports(false).slice(0, 9)"
+            :title="report?.title || report?.description"
+            :publication-date="report?.date"
+            :link="report?.link"
+          />
+        </div>
+        <p v-if="store.filteredReports().length === 0" class="text-xs">
+          No se encontraron reportes con <b>{{ store.getSearch() }}</b>
+        </p>
       </div>
     </div>
   </div>

@@ -30,7 +30,7 @@ import Accordion from '@/components/Accordion.vue';
             >
               {{ store.getCategory() }}
             </h2>
-            <CategoryFilters class="mt-8" />
+            <CategoryFilters class="mt-8" :has-categories="true" />
             <div class="mt-12">
               <div
                 v-if="store.getReports().length !== 0"
@@ -38,14 +38,19 @@ import Accordion from '@/components/Accordion.vue';
               >
                 <CategoryCard
                   :key="`report-${i + 1}`"
-                  v-for="(report, i) in store.filteredReports()"
+                  v-for="(report, i) in store.filteredReports(true)"
                   :title="report?.title || report?.description"
                   :publication-date="report?.date"
-                  :tags="['Tratados', 'Normatividad']"
                   :link="report?.link"
                 />
               </div>
-              <p class="text-xs" v-else>Sin reportes</p>
+              <p class="text-xs" v-else>
+                Da clic en alguna de las opciones de la izquierda, para ver los
+                reportes asociados.
+              </p>
+              <p v-if="store.filteredReports().length === 0" class="text-xs">
+                No se encontraron reportes con <b>{{ store.getSearch() }}</b>
+              </p>
             </div>
           </div>
         </div>
