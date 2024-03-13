@@ -18,7 +18,20 @@ try {
       month: element.mes_de_inicio || element.mes_de_finalizacion,
       date: element.fecha
     };
-    processedReports.push(report);
+
+    const isDuplicate = processedReports.some(existingReport => 
+      existingReport.title === report.title &&
+      existingReport.description === report.description &&
+      existingReport.link === report.link &&
+      existingReport.year === report.year &&
+      existingReport.month === report.month &&
+      existingReport.date === report.date
+    );
+
+    if(!isDuplicate) {
+      processedReports.push(report);
+    }
+    
   });
 
   writeFile(processedReports);
