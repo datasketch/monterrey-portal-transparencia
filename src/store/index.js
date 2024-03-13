@@ -1,9 +1,11 @@
 import { reactive } from 'vue';
 import structureData from '@/data/processed/structure.json';
+import reportsData from '@/data/processed/reports.json';
 
 export const store = reactive({
   // data
   structureData,
+  reportsData,
 
   // states
   category: '',
@@ -73,8 +75,13 @@ export const store = reactive({
   resetReports() {
     return (this.reports = []);
   },
-  filteredReports() {
-    let filteredData = this.reports;
+  filteredReports(hasCategory) {
+    let filteredData;
+    if (!hasCategory) {
+      filteredData = this.reportsData;
+    } else {
+      filteredData = this.reports;
+    }
     if (this.search) {
       filteredData = filteredData.filter(
         (report) =>

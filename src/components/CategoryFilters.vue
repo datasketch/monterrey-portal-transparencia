@@ -2,6 +2,14 @@
 import { store } from '@/store';
 import { ref } from 'vue';
 const searchValue = ref('');
+
+defineProps({
+  hasCategories: {
+    type: Boolean,
+    default: false,
+    required: false,
+  },
+});
 </script>
 
 <template>
@@ -15,7 +23,7 @@ const searchValue = ref('');
               : (searchValue = e.target.value)
         "
         @keydown="(e) => e.key === 'Enter' && store.setSearch(searchValue)"
-        :disabled="store.getReports().length === 0"
+        :disabled="hasCategories && store.getReports().length === 0"
         class="w-full border border-eerie-black/15 focus:outline-none py-1.5 px-3.5 rounded-[5px] disabled:cursor-not-allowed"
         type="text"
         placeholder="Palabra clave"
@@ -24,7 +32,7 @@ const searchValue = ref('');
     <div class="md:w-1/12">
       <button
         @click="() => store.setSearch(searchValue)"
-        :disabled="store.getReports().length === 0"
+        :disabled="hasCategories && store.getReports().length === 0"
         class="bg-indigo-dye rounded-[5px] py-4 md:py-0 w-full h-full grid place-items-center disabled:cursor-not-allowed"
       >
         <img src="/images/icons/arrow-right.svg" alt="arrow right icon" />
