@@ -1,55 +1,27 @@
 [
   {
-    "id": "1",
-    "label": "Obligaciones de transparencia",
-    "src_image": "/images/example.png",
+    "id": "id-categoria-principal-nivel-1",
+    "label": "label-categoria-principal-nivel-1",
+    "src_image": "image-categoria-principal-nivel-1",
     "link": "",
+    "order": 1,
     "children": [
       {
-        "id": "x",
-        "label": "Constituciones",
-        "description": "lorem ipsum",
+        "id": "id-categoria-nivel-2",
+        "label": "label-categoria-nivel-2",
+        "reports": [],
         "children": [
           {
-            "id": "x",
-            "label": "articulo x",
-            "description": "",
-            "transparency_report": [
+            "id": "id-categoria-nivel-3",
+            "label": "label-categoria-nivel-3",
+            "reports": [
               {
-                "id": "x",
-                "label": "Articulo x",
-                "data": [
-                  {
-                    "title": "lorem",
-                    "date": "2024-01-01",
-                    "tags": ["a", "b", "c"],
-                    "link": ".csv"
-                  }
-                ]
-              },
-              {
-                "id": "x",
-                "label": "Articulo x",
-                "data": [
-                  {
-                    "title": "lorem",
-                    "date": "2024-01-01",
-                    "tags": ["a", "b", "c"],
-                    "link": ".csv"
-                  }
-                ]
-              },
-              {
-                "id": "x",
-                "label": "Articulo x",
-                "data": [
-                  {
-                    "title": "lorem",
-                    "date": "2024-01-01",
-                    "tags": ["a", "b", "c"],
-                    "link": ".csv"
-                  }
-                ]
+                "title": "report-title",
+                "description": "report-description",
+                "link": "report-link",
+                "year": "report-year",
+                "month": "report-month",
+                "date": "report-date"
               }
             ]
           }
