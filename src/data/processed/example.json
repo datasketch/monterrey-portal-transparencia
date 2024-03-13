@@ -23,7 +23,8 @@
                 "month": "report-month",
                 "date": "report-date"
               }
-            ]
+            ],
+            "children": []
           }
         ]
       }
