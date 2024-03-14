@@ -39,7 +39,10 @@ import Accordion from '@/components/Accordion.vue';
                 <CategoryCard
                   :key="`report-${i + 1}`"
                   v-for="(report, i) in store.filteredReports(true)"
-                  :title="report?.title || report?.description"
+                  :title="report?.title"
+                  :description="report?.description"
+                  :month="report?.month"
+                  :year="report?.year"
                   :publication-date="report?.date"
                   :link="report?.link"
                 />

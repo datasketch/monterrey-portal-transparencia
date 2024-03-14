@@ -172,6 +172,7 @@ function createTransparencyReport(id, reportJsonData) {
       year: element.ano_de_inicio || element.ano_de_finalizacion,
       month: element.mes_de_inicio || element.mes_de_finalizacion,
       date: element.fecha
+      // conservacion de la informacion - periodisidad de la informacion - formato del documento 
     };
     processedReports.push(report);
   });
