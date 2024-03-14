@@ -31,10 +31,12 @@ defineProps({
     <h3 v-if="title" class="font-medium">
       {{ title }}
     </h3>
-    <p v-if="description">{{ description }}</p>
+    <p class="mt-2" v-if="description">{{ description }}</p>
     <p v-if="publicationDate" class="mt-6 text-[13px]">
       {{ publicationDate }}
     </p>
+    <p class="mt-2" v-if="month">Mes: {{ month }}</p>
+    <p v-if="year">Año: {{ year }}</p>
     <div class="mt-3 flex justify-end" v-if="link">
       <a class="inline-flex items-center gap-x-2" :href="link" target="_blank">
         <p class="text-indigo-dye font-medium">Descargar</p>
