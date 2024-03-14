@@ -2,7 +2,9 @@ import jsdom from 'jsdom';
 import axios from 'axios';
 import * as fs from 'fs';
 
-async function scrapeAndGenerateJSON() {
+const baseUrl = "https://www.monterrey.gob.mx/";
+
+async function scrapeHtmlWithAccordionAndGenerateJSON() {
     try {
         const urls = ["https://www.monterrey.gob.mx/transparencia/Oficial/SAYUNTAMIENTO.asp", 
                       //"https://www.monterrey.gob.mx/transparencia/Oficial/Permisos_Ene24.asp",
@@ -50,21 +52,15 @@ async function scrapeAndGenerateJSON() {
                     ];
         
         for (const url of urls) {
-            const response = await axios.get(url);
-            const dom = new jsdom.JSDOM(response.data);
-            const document = dom.window.document;
-
+            const document = await getDocument(url);
             const data = [];
-            const baseUrl = "https://www.monterrey.gob.mx/";
 
             document.querySelectorAll('.accordion').forEach(element => {
                 const label = element.textContent.trim();
                 const documentos = [];
-
                 const elements = element.parentElement.querySelector('.panel3') || element.parentElement.querySelector('.panel33')
 
                 elements.querySelectorAll('a').forEach(linkElement => {
-                    //const link = linkElement.href;
                     const link = new URL(linkElement.href, baseUrl).href;
                     const title = linkElement.textContent.trim();
                     const documento = { "title": title, "link": link };
@@ -74,17 +70,25 @@ async function scrapeAndGenerateJSON() {
                 data.push({ label, documentos });
             });
 
-            const fileName = url.split("/").pop();
-            const nameWithoutExtension = fileName.split(".")[0];
-
-            const filePath = "../data/scrapped/" + nameWithoutExtension + ".json";
-            writeFile(data, filePath);
+            writeFile(data, getFilePath(url));
         }
         
     } catch (error) {
         console.error('Error al hacer scraping:', error);
         return null;
     }
+}
+
+async function getDocument(url) {
+    const response = await axios.get(url);
+    const dom = new jsdom.JSDOM(response.data);
+    return dom.window.document;
+}
+
+function getFilePath(url) {
+    const fileName = url.split("/").pop();
+    const nameWithoutExtension = fileName.split(".")[0];
+    return "../data/scrapped/" + nameWithoutExtension + ".json";
 }
 
 function writeFile(processedJson, filePath) {
@@ -98,5 +102,5 @@ function writeFile(processedJson, filePath) {
   }
 }
 
-scrapeAndGenerateJSON();
+scrapeHtmlWithAccordionAndGenerateJSON();
 
