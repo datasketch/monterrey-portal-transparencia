@@ -30,7 +30,7 @@ import Accordion from '@/components/Accordion.vue';
             >
               {{ store.getCategory() }}
             </h2>
-            <CategoryFilters class="mt-8" :has-categories="true" />
+            <CategoryFilters v-if="store.getReports().length !== 0" class="mt-8" :has-categories="true" />
             <div class="mt-12">
               <div
                 v-if="store.getReports().length !== 0"
