@@ -165,19 +165,63 @@ function createTransparencyReport(id, reportJsonData) {
   const processedReports = [];
 
   reports.forEach((element) => {
+    let title = element.fraccion_nombre_del_documento;
+    if(!element.fraccion_nombre_del_documento && element.documentos[0]) {
+      const fileName = element.documentos[0].split("/").pop();
+      title = fileName.split(".")[0];
+    }
+
     const report = {
-      title: element.fraccion_nombre_del_documento,
+      title: title,
       description: element.descripcion,
       link: element.documentos[0],
-      year: element.ano_de_inicio || element.ano_de_finalizacion,
-      month: element.mes_de_inicio || element.mes_de_finalizacion,
-      date: element.fecha
-      // conservacion de la informacion - periodisidad de la informacion - formato del documento 
+      conservation_of_information: element.conservacion_de_la_informacion,
+      periodicity_of_information: element.periodicidad_de_la_informacion,
+      start_year:  element.ano_de_inicio,
+      end_year: element.ano_de_finalizacion,
+      start_month: element.mes_de_inicio,
+      end_month: element.mes_de_finalizacion,
+      start_quarter: element.trimestre_de_inicio,
+      end_quarter: element.trimestre_de_finalizacion,
+      bimester: element.bimestre,
+      biweekly: element.quincena,
+      date: element.fecha,
+      responsible: element.responsable, // existe en el json?
+      record_number: element.numero_de_acta,
+      session_number: element.numero_de_sesion,
+      external_link_name: element.nombre_del_enlace_externo,
+      external_link: element.enlace_externo,
+      observation: element.observation,
+      errata: element.fe_de_erratas,
+      assistence_type: element.tipo_de_asistencia, // existe en el json?
+      name_of_the_public_citizen_consultation: element.nombre_de_la_consulta_ciudadana_publica,
+      link_of_the_public_citizen_consultation: element.enlace_de_la_consulta_ciudadana_publica,
+      gazette_type: element.tipo_de_gaceta,
+      gazette_number: element.numero_de_gaceta,
+      section_number: element.numero_de_seccion,
+      district: element.distrito,
+      plan_or_program: element.plan_o_programa,
+      norm: element.norma,
+      topic: element.tema,
+      document_format: element.documento_formato // existe en el json?
     };
+
+    if (!isEmptyObject(element.nombre_de_la_entidad)) {
+      report.entity_name = element.nombre_de_la_entidad[0];
+    }
+
+    if (!isEmptyObject(element.tipo_de_acta_o_sesion)) {
+      report.type_of_record_or_session = element.tipo_de_acta_o_sesion[0];
+    }
+
     processedReports.push(report);
   });
 
   return processedReports;
+}
+
+function isEmptyObject(obj) {
+  return Object.keys(obj).length === 0;
 }
 
 function writeFile(processedJson) {
