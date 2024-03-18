@@ -6,7 +6,7 @@ const baseUrl = "https://www.monterrey.gob.mx/";
 
 async function scrapeHtmlByLabelAndGenerateJSON() {
     try {
-        const urls = ["https://www.monterrey.gob.mx/transparencia/Oficial/SAYUNTAMIENTO.asp", 
+        const urlsAccordion = ["https://www.monterrey.gob.mx/transparencia/Oficial/SAYUNTAMIENTO.asp", 
                       "https://www.monterrey.gob.mx/transparencia/Oficial/SSP_Index_Permisos2024.asp",
                       "https://www.monterrey.gob.mx/transparencia/Oficial/SSP_Index_Permisos2023.asp",
                       "https://www.monterrey.gob.mx/transparencia/Oficial/SSP_Index_Permisos2022.asp",
@@ -18,6 +18,8 @@ async function scrapeHtmlByLabelAndGenerateJSON() {
                       "https://www.monterrey.gob.mx/transparencia/Oficial/SSP_Index_Permisos2016.asp",
                       "https://www.monterrey.gob.mx/transparencia/Oficial/Frac23.asp",
                       "https://www.monterrey.gob.mx/transparencia/Oficial/Frac22.asp",
+                      "https://www.monterrey.gob.mx/transparencia/Oficial/Frac21.asp",
+                      "https://www.monterrey.gob.mx/transparencia/Oficial/Frac20.asp",
                       "https://www.monterrey.gob.mx/transparencia/Oficial/Frac16.asp",
                       "https://www.monterrey.gob.mx/transparencia/Oficial/Frac15.asp",
                       "https://www.monterrey.gob.mx/transparencia/Oficial/Eco23.asp",
@@ -33,11 +35,10 @@ async function scrapeHtmlByLabelAndGenerateJSON() {
                       "https://www.monterrey.gob.mx/transparencia/Oficial/Subdivisiones17.asp",
                       "https://www.monterrey.gob.mx/transparencia/Oficial/Subdivisiones16.asp",
                       "https://www.monterrey.gob.mx/transparencia/Oficial/Subdivisiones15.asp",
-                      "https://www.monterrey.gob.mx/transparencia/Oficial/Obras_Publicas_Contratos.asp",
-                      "https://www.monterrey.gob.mx/transparencia/Oficial/FIDEGRAN_Contratos.asp"
+                      "https://www.monterrey.gob.mx/transparencia/Oficial/Obras_Publicas_Contratos.asp"
                     ];
         
-        for (const url of urls) {
+        for (const url of urlsAccordion) {
             const document = await getDocument(url);
             const data = [];
 
@@ -57,7 +58,13 @@ async function scrapeHtmlByLabelAndGenerateJSON() {
             });
 
             writeFile(data, getFilePath(url));
-        }       
+        }   
+        // TODO
+        // "https://www.monterrey.gob.mx/transparencia/Oficial/ServiciosPublicos.asp" links accordion x list-group
+        // "https://www.monterrey.gob.mx/transparencia/Oficial/Permisos_Ene24.asp" links sueltos x label
+        // https://www.monterrey.gob.mx/transparencia/Oficial/PERMISOS_SSYPC.asp links con label x titulo
+        // "https://www.monterrey.gob.mx/transparencia/Oficial/FIDEGRAN_Contratos.asp" accordion con label x titulo
+        // "https://www.monterrey.gob.mx/transparencia/Oficial/SEDUE.asp" tabs, ya estan scrappeados los documentos
     } catch (error) {
         console.error('Error al hacer scraping:', error);
         return null;
@@ -66,9 +73,7 @@ async function scrapeHtmlByLabelAndGenerateJSON() {
 
 async function scrapeFullHtmlAndGenerateJSON() {
     try {
-        const urlsWithAccordion = [
-                      //"https://www.monterrey.gob.mx/transparencia/Oficial/Permisos_Ene24.asp",
-                      //"https://www.monterrey.gob.mx/transparencia/Oficial/PERMISOS_SSYPC.asp"
+        const urls = [
                       "https://www.monterrey.gob.mx/transparencia/Oficial/Frac19.asp",
                       "https://www.monterrey.gob.mx/transparencia/Oficial/Frac18.asp",
                       "https://www.monterrey.gob.mx/transparencia/Oficial/Frac17.asp",
@@ -79,12 +84,10 @@ async function scrapeFullHtmlAndGenerateJSON() {
                       "https://www.monterrey.gob.mx/transparencia/Oficial/ControlUrbano18.asp",
                       "https://www.monterrey.gob.mx/transparencia/Oficial/ControlUrbano17.asp",
                       "https://www.monterrey.gob.mx/transparencia/Oficial/ControlUrbano16.asp",
-                      "https://www.monterrey.gob.mx/transparencia/Oficial/ControlUrbano15.asp",
-                      //"https://www.monterrey.gob.mx/transparencia/Oficial/SEDUE.asp",
-                      //"https://www.monterrey.gob.mx/transparencia/Oficial/ServiciosPublicos.asp"
+                      "https://www.monterrey.gob.mx/transparencia/Oficial/ControlUrbano15.asp"
                     ];
         
-        for (const url of urlsWithAccordion) {
+        for (const url of urls) {
             const document = await getDocument(url);
             const data = [];
 
