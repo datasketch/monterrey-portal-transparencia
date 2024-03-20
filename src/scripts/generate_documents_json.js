@@ -5,8 +5,77 @@ import * as fs from 'fs';
 const baseUrl = "https://www.monterrey.gob.mx/";
 
 async function scrapeHtmlByLabelAndGenerateJSON() {
+    console.log("Scrapping htmls by label...");
     try {
-        const urlsAccordion = ["https://www.monterrey.gob.mx/transparencia/Oficial/SAYUNTAMIENTO.asp", 
+        const dataHtmlWithAccordion = await generateHtmlWithAccordionDocuments();
+        const dataPublicServices = generatePublicServiceDocuments();
+        const dataPermisosEne24 = await generateJustLinksDocuments([
+            "https://www.monterrey.gob.mx/transparencia/Oficial/Permisos_Ene24.asp"
+        ]); 
+        let dataWithLabel = dataHtmlWithAccordion.concat(dataPublicServices).concat(dataPermisosEne24);
+        writeFile(dataWithLabel, "../data/scrapped/dataScrappingByLabel.json");
+        
+        // Pendiente
+        //const urls = await getPermisosSsypcUrls();
+        //generateJustLinksDocuments(urls);
+
+        // TODO
+        // "https://www.monterrey.gob.mx/transparencia/Oficial/FIDEGRAN_Contratos.asp" accordion con label x titulo
+        // "https://www.monterrey.gob.mx/transparencia/Oficial/SEDUE.asp" tabs, ya estan scrappeados los documentos
+    } catch (error) {
+        console.error('Error al hacer scraping:', error);
+        return null;
+    }
+}
+
+async function getPermisosSsypcUrls() {
+    try {        
+        const links = [];
+        const url = "https://www.monterrey.gob.mx/transparencia/Oficial/PERMISOS_SSYPC.asp";
+        const document = await getDocument(url);
+            
+        document.querySelectorAll('.col-md-9').forEach(element => {
+            const elements = element.querySelector('.box.box-warning');
+
+            elements.querySelectorAll('li a').forEach(linkElement => {
+                const link = new URL(linkElement.href, baseUrl).href;
+                links.push(link);
+            });
+        });
+        return links;
+        
+    } catch (error) {
+        console.error('Error al hacer scraping:', error);
+        return null;
+    }
+}
+
+async function generateJustLinksDocuments(urls) {
+    try {     
+
+        const data = [];
+        for (const url of urls) {
+            const documentos = [];
+            const document = await getDocument(url);
+            const label = document.querySelector('.box.box-warning p').textContent.match(/\d{4}/)[0];
+
+            document.querySelectorAll('.box.box-warning a').forEach(linkElement => {
+                    const link = new URL(linkElement.href, baseUrl).href;
+                    const title = linkElement.textContent.trim();
+                    const documento = { "title": title, "link": link };
+                    documentos.push(documento);
+            });
+            data.push({ url, label, documentos });
+        }
+        
+    } catch (error) {
+        console.error('Error al hacer scraping:', error);
+        return null;
+    }
+}
+
+async function generateHtmlWithAccordionDocuments() {
+    const urlsAccordion = ["https://www.monterrey.gob.mx/transparencia/Oficial/SAYUNTAMIENTO.asp", 
                       "https://www.monterrey.gob.mx/transparencia/Oficial/SSP_Index_Permisos2024.asp",
                       "https://www.monterrey.gob.mx/transparencia/Oficial/SSP_Index_Permisos2023.asp",
                       "https://www.monterrey.gob.mx/transparencia/Oficial/SSP_Index_Permisos2022.asp",
@@ -38,12 +107,12 @@ async function scrapeHtmlByLabelAndGenerateJSON() {
                       "https://www.monterrey.gob.mx/transparencia/Oficial/Obras_Publicas_Contratos.asp"
                     ];
         
+        const data = [];
         for (const url of urlsAccordion) {
             const document = await getDocument(url);
-            const data = [];
 
             document.querySelectorAll('.accordion').forEach(element => {
-                const label = element.textContent.trim();
+                const label = element.textContent.trim().toLowerCase();
                 const documentos = [];
                 const elements = element.parentElement.querySelector('.panel3') || element.parentElement.querySelector('.panel33')
 
@@ -56,22 +125,27 @@ async function scrapeHtmlByLabelAndGenerateJSON() {
 
                 data.push({ url, label, documentos });
             });
-
-            writeFile(data, getFilePath(url));
         }   
-        // TODO
-        // "https://www.monterrey.gob.mx/transparencia/Oficial/ServiciosPublicos.asp" links accordion x list-group
-        // "https://www.monterrey.gob.mx/transparencia/Oficial/Permisos_Ene24.asp" links sueltos x label
-        // https://www.monterrey.gob.mx/transparencia/Oficial/PERMISOS_SSYPC.asp links con label x titulo
-        // "https://www.monterrey.gob.mx/transparencia/Oficial/FIDEGRAN_Contratos.asp" accordion con label x titulo
-        // "https://www.monterrey.gob.mx/transparencia/Oficial/SEDUE.asp" tabs, ya estan scrappeados los documentos
-    } catch (error) {
-        console.error('Error al hacer scraping:', error);
-        return null;
-    }
+        return data;
+}
+
+function generatePublicServiceDocuments() {
+    return [
+        {
+          "url": "https://www.monterrey.gob.mx/transparencia/Oficial/ServiciosPublicos.asp",
+          "label": "contratos y convenios",
+          "documentos": [
+            {
+              "title": "Contrato de Concesión Red Recolector",
+              "link": "https://www.monterrey.gob.mx/pdf/Hipervinculos/SERVICIOSPUBLICOS/Art._95_Fracc_XXVII/Contrato_de_Concesi%C3%B3n_Red_Recolector.pdf"
+            }
+          ]
+        }
+    ];
 }
 
 async function scrapeFullHtmlAndGenerateJSON() {
+    console.log("Scrapping full htmls...");
     try {
         const urls = [
                       "https://www.monterrey.gob.mx/transparencia/Oficial/Frac19.asp",
@@ -87,12 +161,11 @@ async function scrapeFullHtmlAndGenerateJSON() {
                       "https://www.monterrey.gob.mx/transparencia/Oficial/ControlUrbano15.asp"
                     ];
         
+        const data = [];
         for (const url of urls) {
             const document = await getDocument(url);
-            const data = [];
 
             document.querySelectorAll('.col-md-9').forEach(element => {
-                //const label = element.textContent.trim();
                 const documentos = [];
                 const elements = element.querySelector('.box.box-warning');
 
@@ -105,9 +178,8 @@ async function scrapeFullHtmlAndGenerateJSON() {
 
                 data.push({ url, documentos });
             });
-
-            writeFile(data, getFilePath(url));
         }
+        writeFile(data, "../data/scrapped/dataFullScrapping.json");  
         
     } catch (error) {
         console.error('Error al hacer scraping:', error);
@@ -121,14 +193,7 @@ async function getDocument(url) {
     return dom.window.document;
 }
 
-function getFilePath(url) {
-    const fileName = url.split("/").pop();
-    const nameWithoutExtension = fileName.split(".")[0];
-    return "../data/scrapped/" + nameWithoutExtension + ".json";
-}
-
 function writeFile(processedJson, filePath) {
-
   try {
       const jsonString = JSON.stringify(processedJson, null, 2);
       fs.writeFileSync(filePath, jsonString, "utf-8");
@@ -138,6 +203,6 @@ function writeFile(processedJson, filePath) {
   }
 }
 
-scrapeHtmlByLabelAndGenerateJSON();
 scrapeFullHtmlAndGenerateJSON();
+scrapeHtmlByLabelAndGenerateJSON();
 
