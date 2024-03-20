@@ -1,35 +1,43 @@
 // import Vue from 'vue';
-import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
+import { createRouter, createWebHistory } from 'vue-router';
+import HomeView from '../views/HomeView.vue';
+import jsonData from '@/data/processed/structure.json';
+import slugify from 'slugify';
 
-// const DEFAULT_TITLE = 'Some Default Title';
+function generateRoutes(data, prefix) {
+  return data.map((item) => {
+    const path = `${prefix}/${slugify(item.label, { lower: true })}`;
+    return {
+      path,
+      name: item.label,
+      component: () => import('@/views/CategoryView.vue'),
+      props: {
+        id: item.id,
+        label: item.label,
+        children:
+          (item.children &&
+            item.children.reduce((prev, { id, label, reports }) => {
+              return [...prev, { id, label, reports }];
+            }, [])) ||
+          [],
+      },
+      children: item.children ? generateRoutes(item.children, path) : [],
+    };
+  });
+}
+
+const routes = generateRoutes(jsonData, '');
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
       path: '/',
-      name: 'home',
+      name: 'Home',
       component: HomeView,
-      meta: { title: 'Home' }
     },
-    // {
-    //   path: '/about',
-    //   name: 'about',
-    //   // route level code-splitting
-    //   // this generates a separate chunk (About.[hash].js) for this route
-    //   // which is lazy-loaded when the route is visited.
-    //   component: () => import('../views/AboutView.vue')
-    // }
-  ]
-})
+    ...routes,
+  ],
+});
 
-// router.afterEach((to, from) => {
-//   // Use next tick to handle router history correctly
-//   // see: https://github.com/vuejs/vue-router/issues/914#issuecomment-384477609
-//   Vue.nextTick(() => {
-//       document.title = to.meta.title || DEFAULT_TITLE;
-//   });
-// });
-
-export default router
+export default router;
