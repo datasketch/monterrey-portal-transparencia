@@ -1,0 +1,33 @@
+[
+  {
+    "id": "id-categoria-principal-nivel-1",
+    "label": "label-categoria-principal-nivel-1",
+    "src_image": "image-categoria-principal-nivel-1",
+    "link": "",
+    "order": 1,
+    "children": [
+      {
+        "id": "id-categoria-nivel-2",
+        "label": "label-categoria-nivel-2",
+        "reports": [],
+        "children": [
+          {
+            "id": "id-categoria-nivel-3",
+            "label": "label-categoria-nivel-3",
+            "reports": [
+              {
+                "title": "report-title",
+                "description": "report-description",
+                "link": "report-link",
+                "year": "report-year",
+                "month": "report-month",
+                "date": "report-date"
+              }
+            ],
+            "children": []
+          }
+        ]
+      }
+    ]
+  }
+]
