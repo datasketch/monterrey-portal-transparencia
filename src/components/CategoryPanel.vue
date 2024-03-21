@@ -4,8 +4,8 @@
 import BreadCrumbs from '@/components/BreadCrumbs.vue';
 import CategoryFilters from '@/components/CategoryFilters.vue';
 import { store } from '@/store';
-import CategoryCard from '@/components/CategoryCard.vue';
 import Accordion from '@/components/Accordion.vue';
+import ReportCard from '@/components/ReportCard.vue';
 </script>
 
 <template>
@@ -27,9 +27,8 @@ import Accordion from '@/components/Accordion.vue';
             <CategoryFilters v-if="store.getReports().length !== 0" class="mt-8" :has-categories="true" />
             <div class="mt-12">
               <div v-if="store.getReports().length !== 0" class="grid grid-cols-1 md:grid-cols-2 gap-5">
-                <CategoryCard :key="`report-${i + 1}`" v-for="(report, i) in store.filteredReports(true)"
-                  :title="report?.title" :description="report?.description" :month="report?.month" :year="report?.year"
-                  :publication-date="report?.date" :link="report?.link" />
+                <ReportCard :key="`report-${i + 1}`" v-for="(report, i) in store.filteredReports(true)"
+                  :report="report" />
               </div>
               <p class="text-xs" v-else>
                 Da clic en alguna de las opciones de la izquierda, para ver los
