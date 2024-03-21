@@ -3,12 +3,21 @@ import { readFileSync } from "fs";
 
 const structureJsonPath = "../data/raw/structure.json";
 const reportJsonPath = "../data/raw/transparency_report.json";
+const documentsPath = "../data/raw/documents.json";
+const dataScrappingByLabelPath = "../data/scrapped/dataScrappingByLabel.json";
+const dataFullScrappingPath = "../data/scrapped/dataFullScrapping.json"
 
 try {
   const structureJsonContent = readFileSync(structureJsonPath, "utf-8");
   const structureJsonData = JSON.parse(structureJsonContent);
   const reportJsonContent = readFileSync(reportJsonPath, "utf-8");
   const reportJsonData = JSON.parse(reportJsonContent);
+  const documentsJsonContent = readFileSync(documentsPath, "utf-8");
+  const documentsJsonData = JSON.parse(documentsJsonContent);
+  const dataScrappingByLabelJsonContent = readFileSync(dataScrappingByLabelPath, "utf-8");
+  const dataScrappingByLabelJsonData = JSON.parse(dataScrappingByLabelJsonContent);
+  const dataFullScrappingJsonContent = readFileSync(dataFullScrappingPath, "utf-8");
+  const dataFullScrappingJsonData = JSON.parse(dataFullScrappingJsonContent);
 
   const mainCategories = findBy("portal-transparencia", structureJsonData);
 
@@ -64,7 +73,10 @@ try {
       children: createChildren(
         originalChildrenArray,
         structureJsonData,
-        reportJsonData
+        reportJsonData,
+        documentsJsonData,
+        dataScrappingByLabelJsonData,
+        dataFullScrappingJsonData
       ),
     };
 
@@ -97,7 +109,10 @@ function findBy(id, structureJsonData) {
 function createChildren(
   originalChildrenArray,
   structureJsonData,
-  reportJsonData
+  reportJsonData,
+  documentsJsonData,
+  dataScrappingByLabelJsonData,
+  dataFullScrappingJsonData
 ) {
   const visitedSet = new Set();
 
@@ -122,10 +137,19 @@ function createChildren(
         Array.isArray(childrenField) &&
         childrenField.length == 0
       ) {
-        childrenObject.reports = createTransparencyReport(
-          element.id,
-          reportJsonData
-        );
+        if(existsInTransparencyReportJson(element)) {
+          childrenObject.reports = createTransparencyReportWithReportJson(
+            element.id,
+            reportJsonData
+          );
+        } else {
+          childrenObject.reports = createTransparencyReportWithDocJson(
+            element.id,
+            documentsJsonData,
+            dataScrappingByLabelJsonData,
+            dataFullScrappingJsonData
+          );
+        }
       } else {
         // Filtrar y mapear solo los elementos no nulos
         childrenObject.children = childrenField
@@ -151,14 +175,26 @@ function createChildren(
 }
 
 function hasTransparencyReport(element) {
+  return existsInTransparencyReportJson(element) || existsInDocumentsJson(element);
+}
+
+function existsInTransparencyReportJson(element) {
   return (
     element.reporte_transparencia &&
     Array.isArray(element.reporte_transparencia) &&
     element.reporte_transparencia.length > 0
-  );
+  )
 }
 
-function createTransparencyReport(id, reportJsonData) {
+function existsInDocumentsJson(element) {
+  return (
+    element.datos_faltantes_por_estructurar && 
+    Array.isArray(element.datos_faltantes_por_estructurar) &&
+    element.datos_faltantes_por_estructurar.length > 0
+  )
+}
+
+function createTransparencyReportWithReportJson(id, reportJsonData) {
   const reports = reportJsonData.filter(
     (item) => item.slug && item.slug.includes(id)
   );
@@ -214,6 +250,45 @@ function createTransparencyReport(id, reportJsonData) {
       report.type_of_record_or_session = element.tipo_de_acta_o_sesion[0];
     }
 
+    processedReports.push(report);
+  });
+
+  return processedReports;
+}
+
+function createTransparencyReportWithDocJson(id, documentsJsonData, dataScrappingByLabelJsonData, dataFullScrappingJsonData) {
+  const rawDocuments = documentsJsonData.filter(
+    item => item.uid.includes(id)
+  );
+
+  const doc = rawDocuments[0];
+  let documents = [];
+  let reports = [];
+
+  if(doc) {
+    const findBy = doc.comentarios;
+    if(findBy.includes("Búsqueda por label")) {
+        reports = dataScrappingByLabelJsonData.filter(item => {
+        const label = String(doc['label (de estructura)']).toLowerCase();
+        return item && item.label.includes(label) && item.url === doc.url
+      });
+    } else {
+        reports = dataFullScrappingJsonData.filter(item => {
+        return item && item.url === doc.url
+      });
+    }
+    if(reports && reports.length > 0) {
+      documents = reports[0].documentos;
+    }
+  }
+
+  const processedReports = [];
+
+  documents.forEach((element) => {
+    const report = {
+      title: element.title,
+      link: element.link
+    }
     processedReports.push(report);
   });
 
