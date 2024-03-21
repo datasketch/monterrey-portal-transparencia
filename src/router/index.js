@@ -1,35 +1,60 @@
-// import Vue from 'vue';
-import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
+import { createRouter, createWebHistory } from 'vue-router';
+import HomeView from '../views/HomeView.vue';
+import jsonData from '@/data/processed/structure.json';
+import slugify from 'slugify';
 
-// const DEFAULT_TITLE = 'Some Default Title';
+const toSlug = (label) => slugify(label, { lower: true });
+
+function generateRoutes(data, prefix = '', bc = []) {
+  return data.reduce((result, item) => {
+    const slug = toSlug(item.label);
+    const path = `${prefix}/${slug}`;
+    const breadcrumb = [...bc, { label: item.label, slug: path }];
+    const reports = item.reports || [];
+    const set = [
+      {
+        path,
+        component: () => import('@/views/CategoryView.vue'),
+        props: {
+          id: item.id,
+          label: item.label,
+          breadcrumb,
+          reports,
+          items:
+            item.children && Array.isArray(item.children)
+              ? item.children.reduce((prev, { id, label, reports }) => {
+                  return [
+                    ...prev,
+                    { id, label, reports, slug: `${path}/${toSlug(label)}` },
+                  ];
+                }, [])
+              : [],
+        },
+      },
+    ];
+    if (
+      item.children &&
+      Array.isArray(item.children) &&
+      item.children.length > 0
+    ) {
+      set.push(...generateRoutes(item.children, path, breadcrumb));
+    }
+    return [...result, ...set];
+  }, []);
+}
+
+const routes = generateRoutes(jsonData, '');
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
       path: '/',
-      name: 'home',
+      name: 'Home',
       component: HomeView,
-      meta: { title: 'Home' }
     },
-    // {
-    //   path: '/about',
-    //   name: 'about',
-    //   // route level code-splitting
-    //   // this generates a separate chunk (About.[hash].js) for this route
-    //   // which is lazy-loaded when the route is visited.
-    //   component: () => import('../views/AboutView.vue')
-    // }
-  ]
-})
+    ...routes,
+  ],
+});
 
-// router.afterEach((to, from) => {
-//   // Use next tick to handle router history correctly
-//   // see: https://github.com/vuejs/vue-router/issues/914#issuecomment-384477609
-//   Vue.nextTick(() => {
-//       document.title = to.meta.title || DEFAULT_TITLE;
-//   });
-// });
-
-export default router
+export default router;

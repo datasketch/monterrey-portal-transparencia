@@ -1,74 +1,82 @@
-import * as fs from "fs";
-import { readFileSync } from "fs";
+import * as fs from 'fs';
+import { readFileSync } from 'fs';
 
-const structureJsonPath = "../data/raw/structure.json";
-const reportJsonPath = "../data/raw/transparency_report.json";
-const documentsPath = "../data/raw/documents.json";
-const dataScrappingByLabelPath = "../data/scrapped/dataScrappingByLabel.json";
-const dataFullScrappingPath = "../data/scrapped/dataFullScrapping.json"
+const structureJsonPath = '../data/raw/structure.json';
+const reportJsonPath = '../data/raw/transparency_report.json';
+const documentsPath = '../data/raw/documents.json';
+const dataScrappingByLabelPath = '../data/scrapped/dataScrappingByLabel.json';
+const dataFullScrappingPath = '../data/scrapped/dataFullScrapping.json';
 
 try {
-  const structureJsonContent = readFileSync(structureJsonPath, "utf-8");
+  const structureJsonContent = readFileSync(structureJsonPath, 'utf-8');
   const structureJsonData = JSON.parse(structureJsonContent);
-  const reportJsonContent = readFileSync(reportJsonPath, "utf-8");
+  const reportJsonContent = readFileSync(reportJsonPath, 'utf-8');
   const reportJsonData = JSON.parse(reportJsonContent);
-  const documentsJsonContent = readFileSync(documentsPath, "utf-8");
+  const documentsJsonContent = readFileSync(documentsPath, 'utf-8');
   const documentsJsonData = JSON.parse(documentsJsonContent);
-  const dataScrappingByLabelJsonContent = readFileSync(dataScrappingByLabelPath, "utf-8");
-  const dataScrappingByLabelJsonData = JSON.parse(dataScrappingByLabelJsonContent);
-  const dataFullScrappingJsonContent = readFileSync(dataFullScrappingPath, "utf-8");
+  const dataScrappingByLabelJsonContent = readFileSync(
+    dataScrappingByLabelPath,
+    'utf-8'
+  );
+  const dataScrappingByLabelJsonData = JSON.parse(
+    dataScrappingByLabelJsonContent
+  );
+  const dataFullScrappingJsonContent = readFileSync(
+    dataFullScrappingPath,
+    'utf-8'
+  );
   const dataFullScrappingJsonData = JSON.parse(dataFullScrappingJsonContent);
 
-  const mainCategories = findBy("portal-transparencia", structureJsonData);
+  const mainCategories = findBy('portal-transparencia', structureJsonData);
 
   console.log(mainCategories.length);
 
   const srcPathNames = {
-    "Obligaciones de transparencia": "/images/icons/magnifying-glass.svg",
-    "Ayuntamiento sesiones y comisiones": "/images/icons/bank.svg",
-    "Gacetas municipales": "/images/icons/news-paper.svg",
-    normatividad: "/images/icons/hammer.svg",
-    "Consulta información fiscal itdif": "/images/icons/document.svg",
-    "Solicita información pública de tu interes": "/images/icons/lamp.svg",
-    "Información historica 2015 ene2022": "/images/icons/time.svg",
+    'Obligaciones de transparencia': '/images/icons/magnifying-glass.svg',
+    'Ayuntamiento sesiones y comisiones': '/images/icons/bank.svg',
+    'Gacetas municipales': '/images/icons/news-paper.svg',
+    normatividad: '/images/icons/hammer.svg',
+    'Consulta información fiscal itdif': '/images/icons/document.svg',
+    'Solicita información pública de tu interes': '/images/icons/lamp.svg',
+    'Información historica 2015 ene2022': '/images/icons/time.svg',
   };
 
   const order = {
-    "Obligaciones de transparencia": 1,
-    "Ayuntamiento sesiones y comisiones": 2,
-    "Gacetas municipales": 3,
+    'Obligaciones de transparencia': 1,
+    'Ayuntamiento sesiones y comisiones': 2,
+    'Gacetas municipales': 3,
     normatividad: 4,
-    "Consulta información fiscal itdif": 5,
-    "Solicita información pública de tu interes": 8,
-    "Información historica 2015 ene2022": 9,
+    'Consulta información fiscal itdif': 5,
+    'Solicita información pública de tu interes': 8,
+    'Información historica 2015 ene2022': 9,
   };
 
   const correctText = {
-    "Obligaciones de transparencia": "Obligaciones de transparencia",
-    "Ayuntamiento sesiones y comisiones": "Ayuntamiento, sesiones y comisiones",
-    "Gacetas municipales": "Gacetas municipales",
-    normatividad: "Normatividad",
-    "Consulta información fiscal itdif": "Consulta información fiscal (ITDIF)",
-    "Solicita información pública de tu interes":
-      "Solicita información pública de tu interés",
-    "Información historica 2015 ene2022": "Información histórica 2015-2022",
+    'Obligaciones de transparencia': 'Obligaciones de transparencia',
+    'Ayuntamiento sesiones y comisiones': 'Ayuntamiento, sesiones y comisiones',
+    'Gacetas municipales': 'Gacetas municipales',
+    normatividad: 'Normatividad',
+    'Consulta información fiscal itdif': 'Consulta información fiscal (ITDIF)',
+    'Solicita información pública de tu interes':
+      'Solicita información pública de tu interés',
+    'Información historica 2015 ene2022': 'Información histórica 2015-2022',
   };
 
   const processedJson = [];
 
   mainCategories.forEach((element) => {
-    console.log("-----------> Creating main category " + element.label);
+    console.log('-----------> Creating main category ' + element.label);
 
     const originalChildrenArray = findBy(element.id, structureJsonData);
 
     console.log(
-      "-----------> Creating children categories for " + element.label
+      '-----------> Creating children categories for ' + element.label
     );
     const mainCategoryProcessed = {
       id: element.id,
       label: correctText[element.label],
       src_image: srcPathNames[element.label],
-      link: "", // estas categorias no redirigen a un link externo, queda vacío
+      link: '', // estas categorias no redirigen a un link externo, queda vacío
       order: order[element.label],
       children: createChildren(
         originalChildrenArray,
@@ -85,10 +93,10 @@ try {
 
   // Agrega categoria que redirige a link externo a mano porque no está en el json crudo
   const categoryToExternal = {
-    id: "consulta-los-conjuntos-de-datos-abiertos_portal-transparencia",
-    label: "Consulta los conjuntos de datos abiertos",
-    src_image: "/images/icons/database.svg",
-    link: "https://datos.monterrey.gob.mx/",
+    id: 'consulta-los-conjuntos-de-datos-abiertos_portal-transparencia',
+    label: 'Consulta los conjuntos de datos abiertos',
+    src_image: '/images/icons/database.svg',
+    link: 'https://datos.monterrey.gob.mx/',
     order: 7,
     children: [], // esta categoría no tiene children, queda vacío
   };
@@ -97,12 +105,12 @@ try {
 
   writeFile(processedJson.sort((a, b) => a.order - b.order));
 } catch (error) {
-  console.error("Error parsing file:", error.message);
+  console.error('Error parsing file:', error.message);
 }
 
 function findBy(id, structureJsonData) {
   return structureJsonData.filter(
-    (item) => item.to && (item.to === id || item.to === id + "_")
+    (item) => item.to && (item.to === id || item.to === id + '_')
   );
 }
 
@@ -117,14 +125,14 @@ function createChildren(
   const visitedSet = new Set();
 
   function createChildrenRecursive(element) {
-    console.log("Creating " + element.label);
+    console.log('Creating ' + element.label);
 
-        if (!visitedSet.has(element.id)) {
-            const childrenObject = {
-                id: element.id,
-                label: element.label,
-                reports: []
-            };
+    if (!visitedSet.has(element.id)) {
+      const childrenObject = {
+        id: element.id,
+        label: element.label,
+        reports: [],
+      };
 
       // Marcar como visitado antes de procesar hijos
       visitedSet.add(element.id);
@@ -137,7 +145,7 @@ function createChildren(
         Array.isArray(childrenField) &&
         childrenField.length == 0
       ) {
-        if(existsInTransparencyReportJson(element)) {
+        if (existsInTransparencyReportJson(element)) {
           childrenObject.reports = createTransparencyReportWithReportJson(
             element.id,
             reportJsonData
@@ -175,7 +183,9 @@ function createChildren(
 }
 
 function hasTransparencyReport(element) {
-  return existsInTransparencyReportJson(element) || existsInDocumentsJson(element);
+  return (
+    existsInTransparencyReportJson(element) || existsInDocumentsJson(element)
+  );
 }
 
 function existsInTransparencyReportJson(element) {
@@ -183,15 +193,15 @@ function existsInTransparencyReportJson(element) {
     element.reporte_transparencia &&
     Array.isArray(element.reporte_transparencia) &&
     element.reporte_transparencia.length > 0
-  )
+  );
 }
 
 function existsInDocumentsJson(element) {
   return (
-    element.datos_faltantes_por_estructurar && 
+    element.datos_faltantes_por_estructurar &&
     Array.isArray(element.datos_faltantes_por_estructurar) &&
     element.datos_faltantes_por_estructurar.length > 0
-  )
+  );
 }
 
 function createTransparencyReportWithReportJson(id, reportJsonData) {
@@ -202,9 +212,9 @@ function createTransparencyReportWithReportJson(id, reportJsonData) {
 
   reports.forEach((element) => {
     let title = element.fraccion_nombre_del_documento;
-    if(!element.fraccion_nombre_del_documento && element.documentos[0]) {
-      const fileName = element.documentos[0].split("/").pop();
-      title = fileName.split(".")[0];
+    if (!element.fraccion_nombre_del_documento && element.documentos[0]) {
+      const fileName = element.documentos[0].split('/').pop();
+      title = fileName.split('.')[0];
       title = decodeURIComponent(title);
     }
 
@@ -214,7 +224,7 @@ function createTransparencyReportWithReportJson(id, reportJsonData) {
       link: element.documentos[0],
       conservation_of_information: element.conservacion_de_la_informacion,
       periodicity_of_information: element.periodicidad_de_la_informacion,
-      start_year:  element.ano_de_inicio,
+      start_year: element.ano_de_inicio,
       end_year: element.ano_de_finalizacion,
       start_month: element.mes_de_inicio,
       end_month: element.mes_de_finalizacion,
@@ -231,8 +241,10 @@ function createTransparencyReportWithReportJson(id, reportJsonData) {
       observation: element.observation,
       errata: element.fe_de_erratas,
       assistence_type: element.tipo_de_asistencia, // existe en el json?
-      name_of_the_public_citizen_consultation: element.nombre_de_la_consulta_ciudadana_publica,
-      link_of_the_public_citizen_consultation: element.enlace_de_la_consulta_ciudadana_publica,
+      name_of_the_public_citizen_consultation:
+        element.nombre_de_la_consulta_ciudadana_publica,
+      link_of_the_public_citizen_consultation:
+        element.enlace_de_la_consulta_ciudadana_publica,
       gazette_type: element.tipo_de_gaceta,
       gazette_number: element.numero_de_gaceta,
       section_number: element.numero_de_seccion,
@@ -240,7 +252,7 @@ function createTransparencyReportWithReportJson(id, reportJsonData) {
       plan_or_program: element.plan_o_programa,
       norm: element.norma,
       topic: element.tema,
-      document_format: element.documento_formato // existe en el json?
+      document_format: element.documento_formato, // existe en el json?
     };
 
     if (!isEmptyObject(element.nombre_de_la_entidad)) {
@@ -257,28 +269,33 @@ function createTransparencyReportWithReportJson(id, reportJsonData) {
   return processedReports;
 }
 
-function createTransparencyReportWithDocJson(id, documentsJsonData, dataScrappingByLabelJsonData, dataFullScrappingJsonData) {
-  const rawDocuments = documentsJsonData.filter(
-    item => item.uid.includes(id)
+function createTransparencyReportWithDocJson(
+  id,
+  documentsJsonData,
+  dataScrappingByLabelJsonData,
+  dataFullScrappingJsonData
+) {
+  const rawDocuments = documentsJsonData.filter((item) =>
+    item.uid.includes(id)
   );
 
   const doc = rawDocuments[0];
   let documents = [];
   let reports = [];
 
-  if(doc) {
+  if (doc) {
     const findBy = doc.comentarios;
-    if(findBy.includes("Búsqueda por label")) {
-        reports = dataScrappingByLabelJsonData.filter(item => {
+    if (findBy.includes('Búsqueda por label')) {
+      reports = dataScrappingByLabelJsonData.filter((item) => {
         const label = String(doc['label (de estructura)']).toLowerCase();
-        return item && item.label.includes(label) && item.url === doc.url
+        return item && item.label.includes(label) && item.url === doc.url;
       });
     } else {
-        reports = dataFullScrappingJsonData.filter(item => {
-        return item && item.url === doc.url
+      reports = dataFullScrappingJsonData.filter((item) => {
+        return item && item.url === doc.url;
       });
     }
-    if(reports && reports.length > 0) {
+    if (reports && reports.length > 0) {
       documents = reports[0].documentos;
     }
   }
@@ -288,8 +305,8 @@ function createTransparencyReportWithDocJson(id, documentsJsonData, dataScrappin
   documents.forEach((element) => {
     const report = {
       title: element.title,
-      link: element.link
-    }
+      link: element.link,
+    };
     processedReports.push(report);
   });
 
@@ -301,13 +318,13 @@ function isEmptyObject(obj) {
 }
 
 function writeFile(processedJson) {
-  const filePath = "../data/processed/structure.json";
+  const filePath = '../data/processed/structure.json';
 
   try {
     const jsonString = JSON.stringify(processedJson, null, 2);
-    fs.writeFileSync(filePath, jsonString, "utf-8");
+    fs.writeFileSync(filePath, jsonString, 'utf-8');
     console.log(`File ${filePath} created successfully.`);
   } catch (err) {
-    console.error("Error writing file:", err);
+    console.error('Error writing file:', err);
   }
 }
