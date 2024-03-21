@@ -205,6 +205,7 @@ function createTransparencyReportWithReportJson(id, reportJsonData) {
     if(!element.fraccion_nombre_del_documento && element.documentos[0]) {
       const fileName = element.documentos[0].split("/").pop();
       title = fileName.split(".")[0];
+      title = decodeURIComponent(title);
     }
 
     const report = {
