@@ -1,7 +1,9 @@
 <template>
-  <RouterLink v-if="!link"
+  <RouterLink
+    v-if="!link"
     class="bg-white text-left p-4 rounded-[10px] u-shadow-2 hover:bg-indigo-dye hover:text-white duration-300"
-    :to="{ name: label, path: labelToSlug(label) }">
+    :to="{ path: labelToSlug(label) }"
+  >
     <div class="flex items-center gap-x-4">
       <div class="flex-shrink-0">
         <div class="w-10 h-10 bg-indigo-dye rounded-[10px] grid place-items-center">
@@ -32,7 +34,6 @@
   </a>
 </template>
 <script>
-import { RouterLink } from 'vue-router';
 import slugify from 'slugify';
 
 export default {

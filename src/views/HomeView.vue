@@ -30,8 +30,12 @@
       </p>
       <div class="mt-12">
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-          <CategoryButton :key="id" v-for="{ id, src_image, label, link } in categories" :id="id" :icon-src="src_image"
-            :label="label" :link="link" />
+          <CategoryButton
+            :key="id" v-for="{ id, src_image, label, link } in categories" 
+            :id="id" :icon-src="src_image"
+            :label="label"
+            :link="link"
+          />
         </div>
       </div>
     </div>
