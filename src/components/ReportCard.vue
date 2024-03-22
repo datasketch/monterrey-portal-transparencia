@@ -27,10 +27,10 @@ function openModal() {
 </script>
 <template>
   <div class="bg-white p-5 border border-eerie-black/15 rounded-[5px]">
-    <h3 v-if="report.title" class="font-medium">
+    <h3 v-if="report.title" class="font-medium line-clamp-1">
       {{ report.title }}
     </h3>
-    <p class="mt-2" v-if="report.description">{{ report.description }}</p>
+    <p class="mt-2 line-clamp-3" v-if="report.description">{{ report.description }}</p>
     <p v-if="report.start_year" class="mt-6 text-[13px]">
       {{ report.start_year }}
     </p>

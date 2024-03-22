@@ -18,7 +18,17 @@
       </div>
     </div>
   </div>
-  <div class="py-12 lg:py-16 xl:py-20">
+  <div class="py-12">
+    <div class="u-container">
+      <div class="u-shadow py-8 px-10 rounded-md">
+        <h3 class="text-[13px] font-bold text-eerie-black">Filtros</h3>
+        <div class="mt-4">
+          <ReportFilters @click="handleGetSearch" />
+        </div>
+      </div>
+    </div>
+  </div>
+  <div v-if="!search" class="pb-12 lg:pb-16 xl:pb-20">
     <div class="u-container">
       <p class="font-light">
         Con el firme compromiso de mantenerla actualizada en este micrositio
@@ -36,7 +46,7 @@
       </div>
     </div>
   </div>
-  <div class="py-12 lg:py-16 xl:py-20 bg-carolina-blue bg-opacity-[5.35%]">
+  <div v-if="!search" class="py-12 lg:py-16 xl:py-20 bg-carolina-blue bg-opacity-[5.35%]">
     <div class="u-container">
       <div class="flex flex-col gap-y-8 md:flex-row md:items-center md:gap-x-12 lg:gap-x-16 xl:gap-x-20">
         <div class="md:w-4/12">
@@ -103,7 +113,7 @@
       </div>
     </div>
   </div>
-  <div class="py-12 bg-white-2">
+  <div v-if="!search" class="py-12 bg-white-2">
     <div class="u-container">
       <div class="flex flex-wrap justify-center xl:flex-nowrap gap-5">
         <div class="xl:w-1/6 max-w-[184px] h-[100px]">
@@ -141,15 +151,44 @@
       </div>
     </div>
   </div>
+  <div v-if="search" class="pt-10 pb-12 lg:pb-16 xl:pb-20">
+    <div class="u-container">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <ReportCard v-for="(report, i) in filteredReports.slice(0, 9)" :key="`report-${i + 1}`" :report="report" />
+      </div>
+    </div>
+  </div>
 </template>
 <script>
 import categoriesData from '@/data/processed/structure.json'
+import reportsData from '@/data/processed/reports'
 import CategoryButton from '@/components/CategoryButton.vue';
+import ReportFilters from '@/components/ReportFilters.vue';
+import ReportCard from '@/components/ReportCard.vue';
+import { ref } from 'vue';
+
 export default {
-  components: { CategoryButton },
+  components: { CategoryButton, ReportFilters, ReportCard },
+  setup() {
+    const search = ref('')
+    return {
+      search
+    }
+  },
   data() {
     return {
-      categories: categoriesData
+      categories: categoriesData,
+      reports: reportsData
+    }
+  },
+  computed: {
+    filteredReports() {
+      return this.reports.filter((report) => report?.title?.toLowerCase().includes(this?.search?.toLowerCase()) || report?.description?.toLowerCase().includes(this?.search?.toLowerCase()))
+    }
+  },
+  methods: {
+    handleGetSearch(str) {
+      this.search = str
     }
   }
 }
