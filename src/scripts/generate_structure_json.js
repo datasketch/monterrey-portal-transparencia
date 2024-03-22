@@ -39,7 +39,7 @@ try {
     'Consulta información fiscal itdif': '/images/icons/document.svg',
     'Solicita información pública de tu interes': '/images/icons/lamp.svg',
     'Información historica 2015 ene2022': '/images/icons/time.svg',
-    'Contratos permisos licencia y concesiones': '/images/icons/magnifying-glass.svg'
+    'Contratos permisos licencia y concesiones': '/images/icons/file.svg'
   };
 
   const order = {
@@ -48,9 +48,9 @@ try {
     'Gacetas municipales': 3,
     'Normatividad': 4,
     'Consulta información fiscal itdif': 5,
-    'Solicita información pública de tu interes': 7,
-    'Información historica 2015 ene2022': 8,
-    'Contratos permisos licencia y concesiones': 9
+    'Solicita información pública de tu interes': 8,
+    'Información historica 2015 ene2022': 9,
+    'Contratos permisos licencia y concesiones': 6
   };
 
   const correctText = {
@@ -62,7 +62,7 @@ try {
     'Solicita información pública de tu interes':
       'Solicita información pública de tu interés',
     'Información historica 2015 ene2022': 'Información histórica 2015-2022',
-    'Contratos permisos licencia y concesiones': 'Contratos permisos licencia y concesiones'
+    'Contratos permisos licencia y concesiones': 'Contratos, permisos, licencias y concesiones'
   };
 
   const processedJson = [];
@@ -100,7 +100,7 @@ try {
     label: 'Consulta los conjuntos de datos abiertos',
     src_image: '/images/icons/database.svg',
     link: 'https://datos.monterrey.gob.mx/',
-    order: 6,
+    order: 7,
     children: [], // esta categoría no tiene children, queda vacío
   };
 
