@@ -166,6 +166,7 @@ import CategoryButton from '@/components/CategoryButton.vue';
 import ReportFilters from '@/components/ReportFilters.vue';
 import ReportCard from '@/components/ReportCard.vue';
 import { ref } from 'vue';
+import _ from 'lodash'
 
 export default {
   components: { CategoryButton, ReportFilters, ReportCard },
@@ -183,7 +184,7 @@ export default {
   },
   computed: {
     filteredReports() {
-      return this.reports.filter((report) => report?.title?.toLowerCase().includes(this?.search?.toLowerCase()) || report?.description?.toLowerCase().includes(this?.search?.toLowerCase()))
+      return _.orderBy(this.reports, ['start_year', 'title'], ['desc', 'asc']).filter((report) => report?.title?.toLowerCase().includes(this?.search?.toLowerCase()) || report?.description?.toLowerCase().includes(this?.search?.toLowerCase()))
     }
   },
   methods: {

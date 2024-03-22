@@ -22,10 +22,16 @@ function generateRoutes(data, prefix = '', bc = []) {
           reports,
           items:
             item.children && Array.isArray(item.children)
-              ? item.children.reduce((prev, { id, label, reports }) => {
+              ? item.children.reduce((prev, { id, label, order, reports }) => {
                   return [
                     ...prev,
-                    { id, label, reports, slug: `${path}/${toSlug(label)}` },
+                    {
+                      id,
+                      label,
+                      order,
+                      reports,
+                      slug: `${path}/${toSlug(label)}`,
+                    },
                   ];
                 }, [])
               : [],
