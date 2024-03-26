@@ -81,6 +81,7 @@ try {
       src_image: srcPathNames[element.label],
       link: '', // estas categorias no redirigen a un link externo, queda vacío
       order: order[element.label],
+      description: element.descripcion,
       children: createChildren(
         originalChildrenArray,
         structureJsonData,
@@ -135,6 +136,7 @@ function createChildren(
         id: element.id,
         label: element.label,
         order: element.order,
+        description: element.descripcion,
         reports: [],
       };
 
