@@ -18,6 +18,7 @@ function generateRoutes(data, prefix = '', bc = []) {
         props: {
           id: item.id,
           label: item.label,
+          description: item.description,
           breadcrumb,
           reports,
           items:

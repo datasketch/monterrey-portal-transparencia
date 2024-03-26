@@ -13,22 +13,8 @@
             <h2 class="text-2xl lg:text-3xl font-semibold first-letter:uppercase">
               {{ label }}
             </h2>
-            <div class="my-6 space-y-4" v-if="label === 'Obligaciones de transparencia'">
-              <p>
-                En atención al Acuerdo de Instalación de la Unidad de Transparencia y Comité de Transparencia de la
-                Administración Pública Centralizada del Municipio de Monterrey, se hace de su conocimiento que a partir
-                del 01 de febrero de 2022 comenzó en operaciones la Unidad de Transparencia de la Administración Pública
-                Centralizada, con ello la difusión de la información será más sencilla para la ciudadanía de acuerdo con
-                sus facultades, atribuciones y funciones, la información de los siguientes temas, documentos y
-                políticas.
-              </p>
-              <p>
-                Consulta la información generada durante el periodo 2015 a enero 2022, por las extintas unidades de
-                transparencia de las dependencias del municipio de monterrey, en <a class="text-indigo-dye underline"
-                  href="https://www.monterrey.gob.mx/transparencia/Oficial/Index_InformacionPublica.asp"
-                  target="_blank">Información
-                  histórica</a>.
-              </p>
+            <div class="my-6 space-y-4" v-if="description">
+              {{ description }}
             </div>
             <div v-if="reports.length > 0" class="mt-6">
               <ReportFilters @click="handleGetSearch" />
@@ -69,6 +55,9 @@ export default {
       required: true
     },
     label: {
+      type: String
+    },
+    description: {
       type: String
     },
     items: {

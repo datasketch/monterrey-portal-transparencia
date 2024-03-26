@@ -29,40 +29,15 @@ try {
 
   const mainCategories = findBy('portal-transparencia', structureJsonData);
 
-  console.log(mainCategories.length);
-
   const srcPathNames = {
     'Obligaciones de transparencia': '/images/icons/magnifying-glass.svg',
-    'Ayuntamiento sesiones y comisiones': '/images/icons/bank.svg',
-    'Gacetas municipales': '/images/icons/news-paper.svg',
-    'Normatividad': '/images/icons/hammer.svg',
-    'Consulta información fiscal itdif': '/images/icons/document.svg',
+    'Ayuntamiento, Sesiones y Comisiones': '/images/icons/bank.svg',
+    'Gacetas Municipales': '/images/icons/news-paper.svg',
+    Normatividad: '/images/icons/hammer.svg',
+    'Consulta Información Fiscal ITDIF': '/images/icons/document.svg',
     'Solicita información pública de tu interes': '/images/icons/lamp.svg',
     'Información historica 2015 ene2022': '/images/icons/time.svg',
-    'Contratos permisos licencia y concesiones': '/images/icons/file.svg'
-  };
-
-  const order = {
-    'Obligaciones de transparencia': 1,
-    'Ayuntamiento sesiones y comisiones': 2,
-    'Gacetas municipales': 3,
-    'Normatividad': 4,
-    'Consulta información fiscal itdif': 5,
-    'Solicita información pública de tu interes': 8,
-    'Información historica 2015 ene2022': 9,
-    'Contratos permisos licencia y concesiones': 6
-  };
-
-  const correctText = {
-    'Obligaciones de transparencia': 'Obligaciones de transparencia',
-    'Ayuntamiento sesiones y comisiones': 'Ayuntamiento, sesiones y comisiones',
-    'Gacetas municipales': 'Gacetas municipales',
-    'Normatividad': 'Normatividad',
-    'Consulta información fiscal itdif': 'Consulta información fiscal (ITDIF)',
-    'Solicita información pública de tu interes':
-      'Solicita información pública de tu interés',
-    'Información historica 2015 ene2022': 'Información histórica 2015-2022',
-    'Contratos permisos licencia y concesiones': 'Contratos, permisos, licencias y concesiones'
+    'Contratos permisos licencia y concesiones': '/images/icons/file.svg',
   };
 
   const processedJson = [];
@@ -77,10 +52,10 @@ try {
     );
     const mainCategoryProcessed = {
       id: element.id,
-      label: correctText[element.label],
+      label: element.label,
       src_image: srcPathNames[element.label],
       link: '', // estas categorias no redirigen a un link externo, queda vacío
-      order: order[element.label],
+      order: element.order,
       description: element.descripcion,
       children: createChildren(
         originalChildrenArray,
@@ -101,7 +76,7 @@ try {
     label: 'Consulta los conjuntos de datos abiertos',
     src_image: '/images/icons/database.svg',
     link: 'https://datos.monterrey.gob.mx/',
-    order: 7,
+    order: 2200,
     children: [], // esta categoría no tiene children, queda vacío
   };
 
