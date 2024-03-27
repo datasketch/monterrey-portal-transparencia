@@ -7,7 +7,7 @@ import {
   DialogPanel,
   DialogTitle,
 } from '@headlessui/vue'
-import { XMarkIcon } from '@heroicons/vue/24/solid';
+import { LinkIcon, XMarkIcon } from '@heroicons/vue/24/solid';
 
 defineProps({
   report: {
@@ -39,14 +39,20 @@ function openModal() {
     <p v-if="report.start_month" class="text-[13px]">
       {{ report.start_month }}
     </p>
-    <div class="mt-3 flex justify-between" v-if="report.link">
+    <div class="mt-3 flex justify-between">
       <div>
-        <button class="text-indigo-dye font-medium" @click="openModal">Leer más</button>
+        <button class="text-indigo-dye font-medium text-sm" @click="openModal">Leer más</button>
       </div>
-      <div>
-        <a class="inline-flex items-center gap-x-2" :href="report.link" target="_blank">
+      <div v-if="report.link">
+        <a class="inline-flex items-center gap-x-2 text-sm" :href="report.link" target="_blank">
           <p class="text-indigo-dye font-medium">Descargar</p>
           <img src="/images/icons/download.svg" alt="download icon" />
+        </a>
+      </div>
+      <div v-if="report.external_link_name && report.external_link">
+        <a class="inline-flex items-center gap-x-2 text-sm" :href="report.external_link" target="_blank">
+          <p class="text-indigo-dye font-medium">Enlace externo</p>
+          <LinkIcon class="h-4 text-indigo-dye" />
         </a>
       </div>
     </div>
