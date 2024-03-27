@@ -82,7 +82,16 @@ export default {
   methods: {
     handleGetSearch(str) {
       this.search = str
+    },
+    scrollToTop() {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth' // Optional: smooth scrolling animation
+      });
     }
+  },
+  mounted() {
+    this.scrollToTop();
   }
 }
 </script>
