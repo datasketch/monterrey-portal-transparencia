@@ -35,9 +35,9 @@ try {
     'Gacetas Municipales': '/images/icons/news-paper.svg',
     Normatividad: '/images/icons/hammer.svg',
     'Consulta Información Fiscal ITDIF': '/images/icons/document.svg',
-    'Solicita información pública de tu interes': '/images/icons/lamp.svg',
-    'Información historica 2015 ene2022': '/images/icons/time.svg',
-    'Contratos permisos licencia y concesiones': '/images/icons/file.svg',
+    'Solicita Información Pública de tu Interés': '/images/icons/lamp.svg',
+    'Información Histórica 2015 - ENE 2022': '/images/icons/time.svg',
+    'Contratos, Permisos, Licencia y Concesiones': '/images/icons/file.svg',
   };
 
   const processedJson = [];
