@@ -4,7 +4,7 @@
       <BreadCrumbs :items="breadcrumb" />
       <div class="mt-8 md:mt-12 lg:mt-16">
         <div class="flex flex-col md:flex-row gap-y-8 gap-x-16">
-          <div v-if="reports.length === 0" class="block w-full md:max-w-[347px]">
+          <div v-if="reports.length === 0 && items.length !== 0" class="block w-full md:max-w-[347px]">
             <div class="bg-indigo-dye p-4 rounded-[5px]">
               <CategoryNavigation :items="navigation" />
             </div>
