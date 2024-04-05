@@ -6,6 +6,7 @@ const reportJsonPath = '../data/raw/transparency_report.json';
 const documentsPath = '../data/raw/documents.json';
 const dataScrappingByLabelPath = '../data/scrapped/dataScrappingByLabel.json';
 const dataFullScrappingPath = '../data/scrapped/dataFullScrapping.json';
+const dataScrappingByIdPath = '../data/scrapped/dataScrappingById.json';
 
 try {
   const structureJsonContent = readFileSync(structureJsonPath, 'utf-8');
@@ -26,6 +27,13 @@ try {
     'utf-8'
   );
   const dataFullScrappingJsonData = JSON.parse(dataFullScrappingJsonContent);
+  const dataScrappingByIdJsonContent = readFileSync(
+    dataScrappingByIdPath,
+    'utf-8'
+  );
+  const dataScrappingByIdJsonData = JSON.parse(
+    dataScrappingByIdJsonContent
+  );
 
   const mainCategories = findBy('portal-transparencia', structureJsonData);
 
@@ -43,13 +51,13 @@ try {
   const processedJson = [];
 
   mainCategories.forEach((element) => {
-    console.log('-----------> Creating main category ' + element.label);
+    //console.log('-----------> Creating main category ' + element.label);
 
     const originalChildrenArray = findBy(element.id, structureJsonData);
 
-    console.log(
-      '-----------> Creating children categories for ' + element.label
-    );
+    // console.log(
+    //   '-----------> Creating children categories for ' + element.label
+    // );
     const mainCategoryProcessed = {
       id: element.id,
       label: element.label,
@@ -63,7 +71,8 @@ try {
         reportJsonData,
         documentsJsonData,
         dataScrappingByLabelJsonData,
-        dataFullScrappingJsonData
+        dataFullScrappingJsonData,
+        dataScrappingByIdJsonData
       ),
     };
 
@@ -99,12 +108,13 @@ function createChildren(
   reportJsonData,
   documentsJsonData,
   dataScrappingByLabelJsonData,
-  dataFullScrappingJsonData
+  dataFullScrappingJsonData,
+  dataScrappingByIdJsonData
 ) {
   const visitedSet = new Set();
 
   function createChildrenRecursive(element) {
-    console.log('Creating ' + element.label);
+    //console.log('Creating ' + element.label);
 
     if (!visitedSet.has(element.id)) {
       const childrenObject = {
@@ -120,13 +130,23 @@ function createChildren(
 
       const childrenField = findBy(element.id, structureJsonData);
 
-      // Llegué al nodo final, creo el reporte de transparencia
+      // No hay más hijos, valido si existe reporte y lo creo si existe
+      if(Array.isArray(childrenField) &&
+      childrenField.length == 0) {
+        const reports = createTransparencyReportWithDocByIdJson(element.id, dataScrappingByIdJsonData);
+        if(reports && reports.length > 0) {
+          childrenObject.reports = reports;
+        }
+      }
+
+      // Si llegué al nodo final y no se creó el reporte de transparencia, se crea
       if (
+        childrenObject.reports.length == 0 &&
         hasTransparencyReport(element) &&
         Array.isArray(childrenField) &&
         childrenField.length == 0
       ) {
-        if (existsInTransparencyReportJson(element)) {
+          if (existsInTransparencyReportJson(element)) {
           childrenObject.reports = createTransparencyReportWithReportJson(
             element.id,
             reportJsonData
@@ -138,12 +158,12 @@ function createChildren(
             dataScrappingByLabelJsonData,
             dataFullScrappingJsonData
           );
-        }
+        } 
       } else {
         // Filtrar y mapear solo los elementos no nulos
         childrenObject.children = childrenField
-          .map((child) => createChildrenRecursive(child))
-          .filter((child) => child !== null);
+        .map((child) => createChildrenRecursive(child))
+        .filter((child) => child !== null);
       }
 
       return childrenObject;
@@ -254,7 +274,7 @@ function createTransparencyReportWithDocJson(
   id,
   documentsJsonData,
   dataScrappingByLabelJsonData,
-  dataFullScrappingJsonData
+  dataFullScrappingJsonData,
 ) {
   const rawDocuments = documentsJsonData.filter((item) =>
     item.uid.includes(id)
@@ -291,6 +311,37 @@ function createTransparencyReportWithDocJson(
     processedReports.push(report);
   });
 
+  return processedReports;
+}
+
+function createTransparencyReportWithDocByIdJson(
+  id, 
+  dataScrappingByIdJsonData) {
+  let documents;
+
+  const ids = dataScrappingByIdJsonData.filter((item) =>
+    item.id.includes(id)
+  );
+
+  const processedReports = [];
+
+  if (ids && ids.length > 0) {
+    documents = ids[0].documentos;
+
+    documents.forEach((element) => {
+      const report = {
+        title: element.title,
+        link: element.link,
+      };
+      processedReports.push(report);
+    });
+  }
+
+  if(id.includes("_dictamenes-anos-2009-2023_ayuntamiento-sesiones-y-comisiones_portal-transparencia")) {
+    //console.log("+++++++++++++++++++++++++++++",ids);
+    console.log(processedReports);
+  }
+ 
   return processedReports;
 }
 
