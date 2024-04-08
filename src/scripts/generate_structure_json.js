@@ -114,7 +114,7 @@ function createChildren(
   const visitedSet = new Set();
 
   function createChildrenRecursive(element) {
-    //console.log('Creating ' + element.label);
+    console.log('Creating ' + element.label);
 
     if (!visitedSet.has(element.id)) {
       const childrenObject = {
@@ -335,11 +335,6 @@ function createTransparencyReportWithDocByIdJson(
       };
       processedReports.push(report);
     });
-  }
-
-  if(id.includes("_dictamenes-anos-2009-2023_ayuntamiento-sesiones-y-comisiones_portal-transparencia")) {
-    //console.log("+++++++++++++++++++++++++++++",ids);
-    console.log(processedReports);
   }
  
   return processedReports;
