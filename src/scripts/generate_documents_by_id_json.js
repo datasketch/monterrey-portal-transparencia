@@ -30,7 +30,6 @@ async function addCalendarizacionYAsistenciaASesiones(data) {
       const elements = document.querySelectorAll('.tabs a');
   
       elements.forEach((linkElement) => {
-        console.log(linkElement);
           const link = new URL(linkElement.href, baseUrl).href;
           const title = linkElement.textContent.trim();
           const regex = /(\d{4})\//;
