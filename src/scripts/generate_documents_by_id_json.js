@@ -29,13 +29,22 @@ async function scrapeHtmlByIdAndGenerateJSON() {
         let id = year + prefixId;
         data.push({ id, documentos });
     }
-     
+
+    addNormatividadDocs(data);
     writeFile(data, '../data/scrapped/dataScrappingById.json');
     
   } catch (error) {
     console.error('Error al hacer scraping:', error);
     return null;
   }
+}
+
+function addNormatividadDocs(data) {
+    const documentos = [];
+    const documento = { title: "NORMATIVIDAD RELACIONADA CON LAS ACTAS DE LAS SESIONES", link: "https://www.monterrey.gob.mx/pdf/portaln/2020/NORMATIVIDAD%20RELACIONADA%20CON%20LAS%20ACTAS%20DE%20LAS%20SESIONES.docx"};
+    documentos.push(documento);
+    const id = "normatividad-relacionada-con-las-sesiones-votacion-e-integracion-de-comisiones-del-ayuntamiento_ayuntamiento-sesiones-y-comisiones_portal-transparencia";
+    data.push({ id, documentos });
 }
 
 function writeFile(processedJson, filePath) {
