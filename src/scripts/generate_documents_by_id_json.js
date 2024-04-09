@@ -13,12 +13,42 @@ async function scrapeHtmlByIdAndGenerateJSON() {
     await addAyudantamientoDictamenesDocs(data);
     addNormatividadDocs(data);
     await addCalendarizacionYAsistenciaASesiones(data);
+    await addSolicitaInformacionPublicaInformesIndicadores(data);
     writeFile(data, '../data/scrapped/dataScrappingById.json');
     
   } catch (error) {
     console.error('Error al hacer scraping:', error);
     return null;
   }
+}
+
+// Función para eliminar acentos de una cadena de texto
+function eliminarAcentos(texto) {
+  return texto.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+}
+
+async function addSolicitaInformacionPublicaInformesIndicadores(data) {
+  const url = "https://www.monterrey.gob.mx/transparencia/Oficial_/Planes_Municipales_IIMEP.html";
+  const document = await getDocument(url);
+
+    var accordions = document.querySelectorAll('.accordion');
+
+    accordions.forEach(function(accordion) {
+      const documentos = [];
+      var titleId = eliminarAcentos(accordion.textContent.trim().toLowerCase().replace(/\s+/g, '-'));
+      var panel = accordion.nextElementSibling;
+      var links = panel.querySelectorAll('table a');
+
+      links.forEach(linkElement => {
+        const link = new URL(linkElement.href, baseUrl).href;
+        const title = linkElement.textContent.trim();
+        const documento = { title: title, link: link };
+        documentos.push(documento);
+      });
+
+      let id = `tableros-de-control_${titleId}_informes-indicadores-metas-estadisticas-y-programas_informes-indicadores-metas-estadisticas-y-programas_solicita-informacion-publica-de-tu-interes_portal-transparencia`;
+      data.push({ id, documentos });
+  });
 }
 
 async function addCalendarizacionYAsistenciaASesiones(data) {
