@@ -10,11 +10,12 @@ async function scrapeHtmlByIdAndGenerateJSON() {
   console.log('Scrapping htmls by id...');
   try {
     const data = [];
-    await addAyudantamientoDictamenesDocs(data);
+    await addAyudantamientoDictamenes(data);
     addNormatividadDocs(data);
     await addCalendarizacionYAsistenciaASesiones(data);
     await addSolicitaInformacionPublicaInformesIndicadores(data);
     await addSolicitaInformacionPublicaNomina(data); 
+    addEstadisticasDeSolicitudesDeInformacion(data);
     writeFile(data, '../data/scrapped/dataScrappingById.json');
     
   } catch (error) {
@@ -26,6 +27,19 @@ async function scrapeHtmlByIdAndGenerateJSON() {
 // Función para eliminar acentos de una cadena de texto
 function eliminarAcentos(texto) {
   return texto.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+}
+
+function addEstadisticasDeSolicitudesDeInformacion(data) {
+  let documentos = [];
+  let documento = { title: "ESTADÍSTICAS 2024", link: "https://www.monterrey.gob.mx/pdf/portaln/2024/Indicadores_Transparencia_FEB24.xlsx"};
+  documentos.push(documento);
+  let id = "estadisticas-2024_estadisticas-de-solicitudes-de-informacion_solicita-informacion-publica-de-tu-interes_portal-transparencia";
+  data.push({ id, documentos });
+  documentos = [];
+  documento = { title: "ESTADÍSTICAS HISTÓRICAS", link: "https://www.monterrey.gob.mx/pdf/portaln/2024/ESTADISTICASCONCENTRADO_NOV08-FEB24.xlsx"};
+  documentos.push(documento);
+  id = "estadisticas-historicas_estadisticas-de-solicitudes-de-informacion_solicita-informacion-publica-de-tu-interes_portal-transparencia";
+  data.push({ id, documentos });
 }
 
 async function addSolicitaInformacionPublicaNomina(data) {
@@ -100,7 +114,7 @@ async function addCalendarizacionYAsistenciaASesiones(data) {
   }
 }
 
-async function addAyudantamientoDictamenesDocs(data) {
+async function addAyudantamientoDictamenes(data) {
   const prefixId = "_dictamenes-anos-2009-2023_ayuntamiento-sesiones-y-comisiones_portal-transparencia";
   const url = "https://www.monterrey.gob.mx/transparencia/Oficial/Index_Dictamenes.asp";
   const document = await getDocument(url);

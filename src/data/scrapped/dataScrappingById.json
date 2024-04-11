@@ -5090,5 +5090,23 @@
         "link": "https://www.monterrey.gob.mx/pdf/nomina/2024/Transparencia_Proactiva_20240101.xlsx"
       }
     ]
+  },
+  {
+    "id": "estadisticas-2024_estadisticas-de-solicitudes-de-informacion_solicita-informacion-publica-de-tu-interes_portal-transparencia",
+    "documentos": [
+      {
+        "title": "ESTADÍSTICAS 2024",
+        "link": "https://www.monterrey.gob.mx/pdf/portaln/2024/Indicadores_Transparencia_FEB24.xlsx"
+      }
+    ]
+  },
+  {
+    "id": "estadisticas-historicas_estadisticas-de-solicitudes-de-informacion_solicita-informacion-publica-de-tu-interes_portal-transparencia",
+    "documentos": [
+      {
+        "title": "ESTADÍSTICAS HISTÓRICAS",
+        "link": "https://www.monterrey.gob.mx/pdf/portaln/2024/ESTADISTICASCONCENTRADO_NOV08-FEB24.xlsx"
+      }
+    ]
   }
 ]
