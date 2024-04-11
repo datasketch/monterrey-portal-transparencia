@@ -14,6 +14,7 @@ async function scrapeHtmlByIdAndGenerateJSON() {
     addNormatividadDocs(data);
     await addCalendarizacionYAsistenciaASesiones(data);
     await addSolicitaInformacionPublicaInformesIndicadores(data);
+    await addSolicitaInformacionPublicaNomina(data); 
     writeFile(data, '../data/scrapped/dataScrappingById.json');
     
   } catch (error) {
@@ -25,6 +26,30 @@ async function scrapeHtmlByIdAndGenerateJSON() {
 // Función para eliminar acentos de una cadena de texto
 function eliminarAcentos(texto) {
   return texto.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+}
+
+async function addSolicitaInformacionPublicaNomina(data) {
+  const url = "https://www.monterrey.gob.mx/transparencia/Oficial/Index_ServidoresPublicosI.asp";
+  const document = await getDocument(url);
+
+  for (let year = 2009; year <= 2024; year++) {
+    const documentos = [];
+    const elements = document.querySelectorAll('.tabs a');
+
+    elements.forEach((linkElement) => {
+        const link = new URL(linkElement.href, baseUrl).href;
+        const title = linkElement.textContent.trim();
+        const regex = /(\d{4})\//;
+        const match = link.match(regex);
+        if (match && year == match[1] || title.includes(year)) {
+          const documento = { title: title, link: link };
+          documentos.push(documento);
+        }
+    });
+
+    let id = `${year}_nomina-desglose-a-detalle_solicita-informacion-publica-de-tu-interes_portal-transparencia`;
+    data.push({ id, documentos });
+}
 }
 
 async function addSolicitaInformacionPublicaInformesIndicadores(data) {
