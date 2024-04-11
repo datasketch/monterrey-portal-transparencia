@@ -4,6 +4,7 @@ import { readFileSync } from 'fs';
 const reportJsonPath = '../data/raw/transparency_report.json';
 const dataFullScrappingPath = '../data/scrapped/dataFullScrapping.json';
 const dataScrappingByLabelPath = '../data/scrapped/dataScrappingByLabel.json';
+const dataScrappingByIdPath = '../data/scrapped/dataScrappingById.json';
 
 try {
   const reportJsonContent = readFileSync(reportJsonPath, 'utf-8');
@@ -20,6 +21,13 @@ try {
     'utf-8'
   );
   const dataFullScrappingJsonData = JSON.parse(dataFullScrappingJsonContent);
+  const dataScrappingByIdJsonContent = readFileSync(
+    dataScrappingByIdPath,
+    'utf-8'
+  );
+  const dataScrappingByIdJsonData = JSON.parse(
+    dataScrappingByIdJsonContent
+  );
 
   const processedReports = [];
 
@@ -120,6 +128,12 @@ try {
   });
 
   dataFullScrappingJsonData.forEach((element) => {
+    if (element) {
+      processedReports.push(...element.documentos);
+    }
+  });
+
+  dataScrappingByIdJsonData.forEach((element) => {
     if (element) {
       processedReports.push(...element.documentos);
     }
