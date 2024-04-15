@@ -23,6 +23,7 @@ async function scrapeHtmlByIdAndGenerateJSON() {
     await addSolicitaInformacionPublicaTestimoniosTestigosSociales(data);
     await addSolicitaInformacionPublicaCalendarioActividades(data);
     await addSolicitaInformacionPublicaAdquisiciones(data);
+    await addSolicitaInformacionPublicaEstacionamientos(data);
    
     addEstadisticasDeSolicitudesDeInformacion(data);
     
@@ -37,6 +38,24 @@ async function scrapeHtmlByIdAndGenerateJSON() {
 // Función para eliminar acentos de una cadena de texto
 function eliminarAcentos(texto) {
   return texto.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+}
+
+async function addSolicitaInformacionPublicaEstacionamientos(data) {
+  const url = "https://www.monterrey.gob.mx/transparencia/Oficial_/Listado_de_Estacionamientos_Exclusivos.html";
+  const document = await getDocument(url);
+
+  const documentos = [];
+  const elements = document.querySelectorAll('div.content li a');
+
+  elements.forEach((linkElement) => {
+    const link = new URL(linkElement.href, baseUrl).href;
+    const title = linkElement.textContent.trim();
+    const documento = { title: title, link: link };
+    documentos.push(documento);
+  });
+
+  let id = "listado-de-estacionamientos-exclusivos-municipio-de-monterrey_listado-de-estacionamientos-exclusivos_solicita-informacion-publica-de-tu-interes_portal-transparencia";
+  data.push({ id, documentos });
 }
 
 async function addSolicitaInformacionPublicaAdquisiciones(data) {
