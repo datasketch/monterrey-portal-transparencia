@@ -22,6 +22,7 @@ async function scrapeHtmlByIdAndGenerateJSON() {
     addSolicitaInformacionPublicaPadronTestigosSociales(data);
     await addSolicitaInformacionPublicaTestimoniosTestigosSociales(data);
     await addSolicitaInformacionPublicaCalendarioActividades(data);
+    await addSolicitaInformacionPublicaAdquisiciones(data);
    
     addEstadisticasDeSolicitudesDeInformacion(data);
     
@@ -36,6 +37,24 @@ async function scrapeHtmlByIdAndGenerateJSON() {
 // Función para eliminar acentos de una cadena de texto
 function eliminarAcentos(texto) {
   return texto.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+}
+
+async function addSolicitaInformacionPublicaAdquisiciones(data) {
+  const url = "https://www.monterrey.gob.mx/transparencia/Oficial_/Adquisiciones_.html";
+  const document = await getDocument(url);
+
+  const documentos = [];
+  const elements = document.querySelectorAll('div.scrollable table a');
+
+  elements.forEach((linkElement) => {
+    const link = new URL(linkElement.href, baseUrl).href;
+    const title = linkElement.textContent.trim();
+    const documento = { title: title, link: link };
+    documentos.push(documento);
+  });
+
+  let id = "plan-anual-de-adquisiciones_adquisiciones-arrendamientos-y-prestacion-de-servicios_adquisiciones_solicita-informacion-publica-de-tu-interes_portal-transparencia";
+  data.push({ id, documentos });
 }
 
 async function addSolicitaInformacionPublicaCalendarioActividades(data) {
