@@ -19,6 +19,8 @@ async function scrapeHtmlByIdAndGenerateJSON() {
     await addSolicitaInformacionPublicaInformesIndicadores(data);
     await addSolicitaInformacionPublicaNomina(data); 
     addSolicitaInformacionPublicaInfoReservada(data);
+    addSolicitaInformacionPublicaPadronTestigosSociales(data);
+    await addSolicitaInformacionPublicaTestimoniosTestigosSociales(data);
    
     addEstadisticasDeSolicitudesDeInformacion(data);
     
@@ -33,6 +35,34 @@ async function scrapeHtmlByIdAndGenerateJSON() {
 // Función para eliminar acentos de una cadena de texto
 function eliminarAcentos(texto) {
   return texto.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+}
+
+async function addSolicitaInformacionPublicaTestimoniosTestigosSociales(data) {
+  const url = "https://www.monterrey.gob.mx/transparencia/Oficial_/Testigos_Sociales.html";
+  const document = await getDocument(url);
+
+  const documentos = [];
+  const elements = document.querySelectorAll('#comments p a');
+
+  elements.forEach((linkElement, index) => {
+    if(index != 0) {
+      const link = new URL(linkElement.href, baseUrl).href;
+      const title = linkElement.textContent.trim();
+      const documento = { title: title, link: link };
+      documentos.push(documento);
+    }
+  });
+
+  let id = "testimonios-de-testigos-sociales_testimonios-de-testigos-sociales_solicita-informacion-publica-de-tu-interes_portal-transparencia";
+  data.push({ id, documentos });
+}
+
+function addSolicitaInformacionPublicaPadronTestigosSociales(data) {
+  let documentos = [];
+  let documento = { title: "directorio_de_testigos_sociales_actualizado_a_25.08.2023", link: "https://www.nl.gob.mx/sites/default/files/directorio_de_testigos_sociales_actualizado_a_25.08.2023.pdf"};
+  documentos.push(documento);
+  let id = "padron-de-testigos-sociales_testimonios-de-testigos-sociales_solicita-informacion-publica-de-tu-interes_portal-transparencia";
+  data.push({ id, documentos });
 }
 
 function addSolicitaInformacionPublicaInfoReservada(data) {
