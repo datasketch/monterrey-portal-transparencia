@@ -21,6 +21,7 @@ async function scrapeHtmlByIdAndGenerateJSON() {
     addSolicitaInformacionPublicaInfoReservada(data);
     addSolicitaInformacionPublicaPadronTestigosSociales(data);
     await addSolicitaInformacionPublicaTestimoniosTestigosSociales(data);
+    await addSolicitaInformacionPublicaCalendarioActividades(data);
    
     addEstadisticasDeSolicitudesDeInformacion(data);
     
@@ -35,6 +36,24 @@ async function scrapeHtmlByIdAndGenerateJSON() {
 // Función para eliminar acentos de una cadena de texto
 function eliminarAcentos(texto) {
   return texto.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+}
+
+async function addSolicitaInformacionPublicaCalendarioActividades(data) {
+  const url = "https://www.monterrey.gob.mx/transparencia/Oficial_/Ciudadanos_ACDR.html";
+  const document = await getDocument(url);
+
+  const documentos = [];
+  const elements = document.querySelectorAll('.striped a');
+
+  elements.forEach((linkElement) => {
+    const link = new URL(linkElement.href, baseUrl).href;
+    const title = linkElement.textContent.trim();
+    const documento = { title: title, link: link };
+    documentos.push(documento);
+  });
+
+  let id = "calendario-de-actividades-culturales-deportivas-y-recreativas_solicita-informacion-publica-de-tu-interes_portal-transparencia";
+  data.push({ id, documentos });
 }
 
 async function addSolicitaInformacionPublicaTestimoniosTestigosSociales(data) {
