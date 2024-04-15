@@ -11,11 +11,17 @@ async function scrapeHtmlByIdAndGenerateJSON() {
   try {
     const data = [];
     await addAyudantamientoDictamenes(data);
+    
     addNormatividadDocs(data);
+    
     await addCalendarizacionYAsistenciaASesiones(data);
+    
     await addSolicitaInformacionPublicaInformesIndicadores(data);
     await addSolicitaInformacionPublicaNomina(data); 
+    addSolicitaInformacionPublicaInfoReservada(data);
+   
     addEstadisticasDeSolicitudesDeInformacion(data);
+    
     writeFile(data, '../data/scrapped/dataScrappingById.json');
     
   } catch (error) {
@@ -27,6 +33,27 @@ async function scrapeHtmlByIdAndGenerateJSON() {
 // Función para eliminar acentos de una cadena de texto
 function eliminarAcentos(texto) {
   return texto.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+}
+
+function addSolicitaInformacionPublicaInfoReservada(data) {
+  let documentos = [];
+  let documento = { title: "ÍNDICES DE INFORMACIÓN RESERVADA DE LA ADMINISTRACIÓN PÚBLICA CENTRALIZADA DEL MUNICIPIO DE MONTERREY", link: "https://www.monterrey.gob.mx/pdf/portaln/2023/Indice_Acuerdos_Reserva_Mpio_Mty_noviembre23.xlsx"};
+  documentos.push(documento);
+  let id = "indices-de-informacion-reservada-de-la-administraicon-publica-centralizada-del-municipio-de-monterrey_indice-de-informacion-reservada_solicita-informacion-publica-de-tu-interes_portal-transparencia";
+  data.push({ id, documentos });
+  documentos = [];
+  documento = { title: "Instituto de la Juventud", link: "https://www.monterrey.gob.mx/pdf/portaln/2024/INJURE_02_Indice_Acuerdos_Reserva.xlsx"};
+  documentos.push(documento);
+  documento = { title: "Instituto Municipal de Mujeres Regias", link: "https://www.monterrey.gob.mx/pdf/portaln/2023/IMMR_2023_JULIO_DICIEMBRE_Indice-Acuerdos-Reserva.xlsx"};
+  documentos.push(documento);
+  documento = { title: "Instituto Municipal de Planeación Urbana y Convivencia", link: "https://www.monterrey.gob.mx/pdf/portaln/2024/IMPLANC_2024_03_INDICE_DE_ACUERDOS_DE_RESERVA.xlsx"};
+  documentos.push(documento);
+  documento = { title: "Fideicomiso Distrito Tec", link: "https://www.monterrey.gob.mx/pdf/portaln/2024/FIDETEC_2024_03_MARZO_INDICE_ACUERDO_RESERVA.xlsx"};
+  documentos.push(documento);
+  documento = { title: "Fideicomiso de Mantenimiento Monterrey", link: "https://www.monterrey.gob.mx/pdf/portaln/2024/FIDEM_2024_Indice_de_Expedientes_Reservados.xlsx"};
+  documentos.push(documento);
+  id = "indices-de-informacion-reservada-de-la-administracion-publica-paramunicipal_consulta-solicitudes-publicas-concluidas-y-sus-respuestas_indice-de-informacion-reservada_solicita-informacion-publica-de-tu-interes_portal-transparencia";
+  data.push({ id, documentos });
 }
 
 function addEstadisticasDeSolicitudesDeInformacion(data) {
